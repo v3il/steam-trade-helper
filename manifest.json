@@ -1,0 +1,53 @@
+{
+    "manifest_version": 2,
+ 
+    "name": "SteamAutoTrader",
+    "version": "1.0",    
+    "icons": {
+            "16": "images/empty_16.png",
+            "32": "images/empty_32.png",
+            "48": "images/empty_48.png",
+            "64": "images/empty_64.png",
+            "128": "images/empty_128.png"
+    },
+
+    "web_accessible_resources": [
+      "content_scripts/SteamAutoTrader.js",
+      "content_scripts/SteamAutoTrader.css",
+      "node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff2"
+    ],
+ 
+    "content_scripts": [
+        {
+            "matches": ["https://steamcommunity.com/market/listings/570/*", "https://steamcommunity.com/market/"],
+            "js": ["content_scripts/Bootstrap.js"],
+            "run_at": "document_end",
+            "all_frames": true
+        }
+    ],
+
+    "background": {
+      "scripts": ["content_scripts/Background.js"],
+      "persistent": false
+    },
+
+    "externally_connectable": {
+      "matches": [
+        "https://steamcommunity.com/*"
+      ]
+    },
+
+    "permissions": ["http://*/","https://*/", "activeTab", "tabs"],
+
+    "browser_action": {
+          "default_icon": {
+            "16": "images/empty_16.png",
+            "32": "images/empty_32.png",
+            "48": "images/empty_48.png",
+            "64": "images/empty_64.png",
+            "128": "images/empty_128.png"
+          },
+          "default_title": "Empty",
+          "default_popup": "popup/popup.html"
+    }
+}
