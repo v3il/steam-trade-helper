@@ -1,6 +1,24 @@
 <template>
     <div>
         <VDialog :isVisible="dialogShowed" @close="dialogShowed = false">
+
+            <div>
+                <label for="showNotifications">
+                    <input type="checkbox" id="showNotifications" v-model="settings.showNotifications">
+
+                    Показывать уведомления
+                </label>
+
+                <label for="autoUpdateData">
+                    <input type="checkbox" id="autoUpdateData" v-model="settings.autoReloadItemsData">
+
+                    Автоматически обновлять данные предметов
+                </label>
+
+                <br>
+                <br>
+            </div>
+
             <a href="javascript://" @click="loadData">Обновить всё</a>
 
             <table class="items-table">
@@ -83,7 +101,12 @@
             return {
                 dialogShowed: false,
                 firstRender: true,
-                allItemsData: []
+                allItemsData: [],
+
+                settings: {
+                    showNotifications: true,
+                    autoReloadItemsData: true,
+                }
             }
         },
 
@@ -150,21 +173,21 @@
 
                 const goodProfitItems = this.sortedItemsData.filter(item => item.buyProfit > 7);
 
-                if (goodProfitItems.length) {
+                if (goodProfitItems.length && this.settings.showNotifications) {
                     makeNotification({
                         title: 'Есть выгодные предметы!',
-                        body: goodProfitItems
-                            .map(item => item.itemName)
-                            .join(', '),
+                        body: goodProfitItems.map(item => item.itemName).join(', '),
                     });
                 }
             }
         },
 
         created() {
-            sendMessageToBackground({
-                action: 'getBookmarkedItems',
-            }, async (items) => {
+            sendMessageToBackground({ action: 'getSettings' }, async (settings) => {
+                this.settings = Object.assign({}, this.settings, settings);
+            });
+
+            sendMessageToBackground({ action: 'getBookmarkedItems' }, async (items) => {
                 this.allItemsData = items.map((item) => ({
                     ...item,
                     normalizedName: item.itemName.replace('Inscribed ', ''),
@@ -179,11 +202,24 @@
             });
 
             setInterval(() => {
-                if (this.dialogShowed) {
+                if (this.dialogShowed && this.settings.autoReloadItemsData) {
                     console.log('Reload')
                     this.loadData();
                 }
             }, 5 * 60 * 1000);
+        },
+
+        watch: {
+            settings: {
+                deep: true,
+
+                handler(value) {
+                    sendMessageToBackground({
+                        action: 'updateSettings',
+                        settings: value,
+                    })
+                }
+            }
         }
     }
 </script>

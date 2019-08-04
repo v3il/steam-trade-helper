@@ -30,5 +30,17 @@ chrome.runtime.onMessageExternal.addListener(async function(message, sender, sen
         sendResponse(items);
     }
 
+    if (action === 'getSettings') {
+        const settings = await FirebaseItemsService.getSettings();
 
+        sendResponse(settings);
+    }
+
+    if (action === 'updateSettings') {
+        const { settings } = message;
+
+        FirebaseItemsService.updateSettings(settings);
+
+        sendResponse(true);
+    }
 });

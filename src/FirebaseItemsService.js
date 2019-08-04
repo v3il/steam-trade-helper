@@ -62,4 +62,25 @@ export default {
             return false;
         }
     },
+
+    async getSettings() {
+        try {
+            const querySnapshot = await db.collection("settings").get();
+            return querySnapshot.docs[0].data();
+        } catch (e) {
+            return false;
+        }
+    },
+
+    async updateSettings(settings) {
+        try {
+            const querySnapshot = await db.collection("settings").get();
+
+            querySnapshot.forEach((doc) => {
+                db.collection("settings").doc(doc.id).update(settings);
+            });
+        } catch (e) {
+            return false;
+        }
+    },
 }
