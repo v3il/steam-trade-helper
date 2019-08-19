@@ -1,10 +1,12 @@
-export default ({ title, body }) => {
+export default ({ title, body }, clickHandler) => {
     if (Notification.permission !== 'granted') {
         Notification.requestPermission();
     } else {
-        new Notification(title, {
+        const notification = new Notification(title, {
             body,
             icon: '',
         });
+
+        notification.onclick = clickHandler;
     }
 }

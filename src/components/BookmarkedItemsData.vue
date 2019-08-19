@@ -2,24 +2,9 @@
     <div>
         <VDialog :isVisible="dialogShowed" @close="dialogShowed = false">
 
-            <div>
-                <label for="showNotifications">
-                    <input type="checkbox" id="showNotifications" v-model="settings.showNotifications">
+            <button @click="loadData">Обновить всё</button>
 
-                    Показывать уведомления
-                </label>
-
-                <label for="autoUpdateData">
-                    <input type="checkbox" id="autoUpdateData" v-model="settings.autoReloadItemsData">
-
-                    Автоматически обновлять данные предметов
-                </label>
-
-                <br>
-                <br>
-            </div>
-
-            <a href="javascript://" @click="loadData">Обновить всё</a>
+            <div class="separator"></div>
 
             <table class="items-table">
                 <tr>
@@ -34,7 +19,7 @@
                 </tr>
 
                 <tr v-for="itemData in sortedItemsData" :class="{'off': itemData.profit < 4 && itemData.myAutoProfit < 4 && itemData.status === 'loaded'}">
-                    <td>{{itemData.itemName}}</td>
+                    <td>{{itemData.normalizedName}}</td>
 
                     <td>
                         <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
@@ -70,12 +55,42 @@
                     }">{{itemData.buyProfit.toFixed(2)}}</td>
 
                     <td>
-                        <span style="color: red" v-if="itemData.auto - itemData.myAuto < 1">!!!</span>
-                        <span @click="getItemInfo(itemData)">Обновить</span> |
-                        <span v-if="itemData.status === 'loading'" style="color: red">L</span>
+                        <span
+                            class="action-button warn"
+                            v-if="itemData.auto - itemData.myAuto < 1 && itemData.status === 'loaded'"
+                        >!!!</span>
+
+                        <span v-if="itemData.status !== 'loading'" @click="getItemInfo(itemData)" class="action-button reload">
+                            &#x21bb;
+                        </span>
+
+                        <span @dblclick="removeItemFromBookmarks(itemData)" class="action-button remove">
+                            &#9851;
+                        </span>
                     </td>
                 </tr>
             </table>
+
+            <div class="separator"></div>
+
+            <div>
+                <label for="showNotifications">
+                    <input type="checkbox" id="showNotifications" v-model="settings.showNotifications">
+
+                    Показывать уведомления
+                </label>
+
+                <label for="autoUpdateData">
+                    <input type="checkbox" id="autoUpdateData" v-model="settings.autoReloadItemsData">
+
+                    Автоматически обновлять данные предметов
+                </label>
+
+                <label for="notificationPrice">
+                    Цена предмета для оповещения
+                    <input type="number" id="notificationPrice" v-model="settings.notifyOnPrice">
+                </label>
+            </div>
         </VDialog>
 
 
@@ -106,6 +121,7 @@
                 settings: {
                     showNotifications: true,
                     autoReloadItemsData: true,
+                    notifyOnPrice: 7,
                 }
             }
         },
@@ -171,23 +187,43 @@
                     await this.getItemInfo(itemData);
                 }
 
-                const goodProfitItems = this.sortedItemsData.filter(item => item.buyProfit > 7);
+                const goodProfitItems = this.sortedItemsData.filter(item => item.buyProfit > this.settings.notifyOnPrice);
 
                 if (goodProfitItems.length && this.settings.showNotifications) {
                     makeNotification({
                         title: 'Есть выгодные предметы!',
                         body: goodProfitItems.map(item => item.itemName).join(', '),
+                    }, () => {
+                        sendMessageToBackground({
+                            action: 'openTabs',
+                            urls: goodProfitItems.map((item) => {
+                                return `https://steamcommunity.com/market/listings/570/${item.itemName}`;
+                            }),
+                        });
                     });
                 }
+            },
+
+            removeItemFromBookmarks(itemData) {
+                const { itemId } = itemData;
+
+                sendMessageToBackground({
+                    itemId,
+                    action: 'removeFromBookmarks',
+                }, ({ result }) => {
+                    if (result) {
+                        this.allItemsData = this.allItemsData.filter(item => item.itemId !== itemId);
+                    }
+                });
             }
         },
 
         created() {
-            sendMessageToBackground({ action: 'getSettings' }, async (settings) => {
+            sendMessageToBackground({ action: 'getSettings' }, (settings) => {
                 this.settings = Object.assign({}, this.settings, settings);
             });
 
-            sendMessageToBackground({ action: 'getBookmarkedItems' }, async (items) => {
+            sendMessageToBackground({ action: 'getBookmarkedItems' }, (items) => {
                 this.allItemsData = items.map((item) => ({
                     ...item,
                     normalizedName: item.itemName.replace('Inscribed ', ''),
@@ -197,7 +233,7 @@
                     price: 0,
                     profit: 0,
                     buyProfit: 0,
-                    status: 'loading',
+                    status: 'initialized',
                 }));
             });
 
@@ -206,7 +242,7 @@
                     console.log('Reload')
                     this.loadData();
                 }
-            }, 5 * 60 * 1000);
+            }, 4 * 60 * 1000);
         },
 
         watch: {
@@ -229,12 +265,12 @@
         color: #ccc;
 
         td:first-child {
-            width: 400px;
+            width: 200px;
         }
 
         td {
-            min-width: 100px;
-            padding: 6px 0;
+            min-width: 70px;
+            padding: 3px 12px;
         }
 
         td.green {
@@ -252,5 +288,39 @@
         tr.off {
             opacity: 0.3;
         }
+
+        .action-button {
+            font-size: 20px;
+            display: inline-block;
+            margin-right: 12px;
+            line-height: 20px;
+            cursor: pointer;
+
+            &.remove {
+                color: lightcoral;
+            }
+
+            &.warn {
+                color: red;
+            }
+        }
+    }
+
+    label {
+        display: block;
+        margin: 6px 0 6px 12px;
+
+        input[type="text"], input[type="number"] {
+            background: #121212 !important;
+            width: 50px;
+            text-align: center;
+        }
+    }
+
+    .separator {
+        margin: 12px 0;
+        background: #121212;
+        height: 1px;
+        width: 100%;
     }
 </style>

@@ -43,4 +43,14 @@ chrome.runtime.onMessageExternal.addListener(async function(message, sender, sen
 
         sendResponse(true);
     }
+
+    if (action === 'openTabs') {
+        const { urls } = message;
+
+        urls.forEach((url) => {
+            chrome.tabs.create({ url });
+        });
+
+        sendResponse(true);
+    }
 });
