@@ -15,6 +15,7 @@
                     <td>Прибыль</td>
                     <td>Моя прибыль</td>
                     <td>Куп. Прибыль</td>
+                    <td>Разница авто</td>
                     <td>&nbsp;</td>
                 </tr>
 
@@ -53,6 +54,10 @@
                         green: itemData.buyProfit > 0,
                         red: itemData.buyProfit < 0,
                     }">{{itemData.buyProfit.toFixed(2)}}</td>
+
+                    <td :class="{
+                        red: itemData.auto - itemData.myAuto < 15,
+                    }">{{(itemData.auto - itemData.myAuto).toFixed(2)}}</td>
 
                     <td>
                         <span
@@ -192,7 +197,7 @@
                 if (goodProfitItems.length && this.settings.showNotifications) {
                     makeNotification({
                         title: 'Есть выгодные предметы!',
-                        body: goodProfitItems.map(item => item.itemName).join(', '),
+                        body: goodProfitItems.map(item => item.normalizedName).join(', '),
                     }, () => {
                         sendMessageToBackground({
                             action: 'openTabs',
@@ -265,11 +270,11 @@
         color: #ccc;
 
         td:first-child {
-            width: 200px;
+            width: 150px;
         }
 
         td {
-            min-width: 70px;
+            min-width: 60px;
             padding: 3px 12px;
         }
 
