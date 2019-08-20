@@ -26,7 +26,7 @@ export default {
 
     async addToBookmarks({ itemId, itemName }) {
         try {
-            db.collection("bookmarked-items")
+            await db.collection("bookmarked-items")
                 .add({ itemId, itemName });
 
             return true;

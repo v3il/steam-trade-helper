@@ -3,9 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e2cee6d1-2ac9-480f-958e-55347e7f6bbe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.css" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/content_scripts/Background.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/Background.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FirebaseItemsService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/FirebaseItemsService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ItemDataTooltip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ItemDataTooltip.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,13 +20,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/ItemDataTooltip.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="221" column="19" lean-forward="true" selection-start-line="214" selection-start-column="16" selection-end-line="221" selection-end-column="19" />
+            <state relative-caret-position="432">
+              <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
               <folding>
-                <element signature="e#1390#1416#0" expanded="true" />
+                <element signature="e#1191#1262#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -63,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FirebaseItemsService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
-              <caret line="79" column="25" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
+            <state relative-caret-position="216">
+              <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -72,11 +74,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="514">
-              <caret line="57" column="33" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
+            <state relative-caret-position="451">
+              <caret line="172" column="14" lean-forward="true" selection-start-line="141" selection-start-column="12" selection-end-line="172" selection-end-column="14" />
+              <folding>
+                <element signature="e#3856#3892#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -123,7 +128,6 @@
     <findStrings>
       <find>content_security_policy</find>
       <find>localStorageItemId</find>
-      <find>getItemPrice</find>
       <find>auto</find>
       <find>itemPrice</find>
       <find>Orchid</find>
@@ -139,6 +143,14 @@
       <find>dialogShowed</find>
       <find>getItemInfo</find>
       <find>autoPrice</find>
+      <find>sortedItemsData</find>
+      <find>getItemPrice</find>
+      <find>showBookmarkedItemsPrice</find>
+      <find>getModifiedItemName</find>
+      <find>profit</find>
+      <find>modifiedItemName</find>
+      <find>myA</find>
+      <find>toF</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,18 +178,18 @@
         <option value="$PROJECT_DIR$/firebase-config.js" />
         <option value="$PROJECT_DIR$/src/js/handleItemPage.js" />
         <option value="$PROJECT_DIR$/src/components/MarketPageComponent.vue" />
-        <option value="$PROJECT_DIR$/src/components/ItemDataTooltip.vue" />
         <option value="$PROJECT_DIR$/src/ItemsService.js" />
         <option value="$PROJECT_DIR$/src/ІеуфьШеуьіІукмшсу.js" />
         <option value="$PROJECT_DIR$/src/SteamItemsService.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/utils/sendMessageToBackground.js" />
-        <option value="$PROJECT_DIR$/src/FirebaseItemsService.js" />
         <option value="$PROJECT_DIR$/src/utils/makeNotification.js" />
         <option value="$PROJECT_DIR$/src/js/Background.js" />
         <option value="$PROJECT_DIR$/src/components/VDialog.vue" />
         <option value="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" />
+        <option value="$PROJECT_DIR$/src/FirebaseItemsService.js" />
+        <option value="$PROJECT_DIR$/src/components/ItemDataTooltip.vue" />
       </list>
     </option>
   </component>
@@ -194,6 +206,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -233,7 +246,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -314,12 +326,14 @@
       <workItem from="1564406345891" duration="5000" />
       <workItem from="1564473323813" duration="180000" />
       <workItem from="1564903360381" duration="12938000" />
-      <workItem from="1566227454820" duration="8653000" />
+      <workItem from="1566227454820" duration="8834000" />
+      <workItem from="1566286984152" duration="615000" />
+      <workItem from="1566321536325" duration="1828000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93592000" />
+    <option name="totallyTimeSpent" value="96216000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -339,7 +353,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.112676054" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.23510292" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -487,6 +501,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/sendMessageToBackground.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/SteamAutoTrader.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -497,10 +518,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/icons.less">
+    <entry file="file://$PROJECT_DIR$/src/components/VDialog.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        <state relative-caret-position="120">
+          <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
         </state>
       </provider>
     </entry>
@@ -511,10 +532,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/icons.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/Background.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="172" column="14" lean-forward="true" selection-start-line="141" selection-start-column="12" selection-end-line="172" selection-end-column="14" />
+          <folding>
+            <element signature="e#3856#3892#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/FirebaseItemsService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="79" column="25" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
+        <state relative-caret-position="216">
+          <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
@@ -528,41 +573,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/Background.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/sendMessageToBackground.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ItemDataTooltip.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="221" column="19" lean-forward="true" selection-start-line="214" selection-start-column="16" selection-end-line="221" selection-end-column="19" />
+        <state relative-caret-position="432">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
           <folding>
-            <element signature="e#1390#1416#0" expanded="true" />
+            <element signature="e#1191#1262#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/VDialog.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="57" column="33" selection-start-line="57" selection-start-column="33" selection-end-line="57" selection-end-column="33" />
         </state>
       </provider>
     </entry>

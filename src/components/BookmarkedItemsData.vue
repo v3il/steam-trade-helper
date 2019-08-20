@@ -19,7 +19,7 @@
                     <td>&nbsp;</td>
                 </tr>
 
-                <tr v-for="itemData in sortedItemsData" :class="{'off': itemData.profit < 4 && itemData.myAutoProfit < 4 && itemData.status === 'loaded'}">
+                <tr v-for="itemData in sortedItemsData" :class="{'off': itemData.profit < 5 && itemData.myAutoProfit < 5 && itemData.status === 'loaded'}">
                     <td>{{itemData.normalizedName}}</td>
 
                     <td>
