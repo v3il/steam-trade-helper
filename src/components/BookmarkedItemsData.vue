@@ -172,12 +172,6 @@
                 itemData.status = 'loaded';
             },
 
-            getModifiedItemName(name) {
-                return name.startsWith('Inscribed')
-                    ? name.replace('Inscribed ', '')
-                    : `Inscribed ${name}`;
-            },
-
             open() {
                 this.dialogShowed = true;
 

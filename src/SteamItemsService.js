@@ -3,8 +3,8 @@ import axios from 'axios';
 export default {
     async getItemData(itemData) {
         const { itemName } = itemData;
-        const itemPageHTML = await this.getItemPage(itemName);
 
+        const itemPageHTML = await this.getItemPage(itemName);
         const autoPrice = await this.getAutoPrice(itemPageHTML, itemData);
 
         return {
@@ -27,7 +27,8 @@ export default {
             window.Market_LoadOrderSpread(itemData.itemId);
 
             const id = setInterval(() => {
-                const autoPriceTable = wrapper.querySelector('.market_commodity_orders_table');
+                let autoPriceTable = document.body.querySelector('.market_commodity_orders_table') ||
+                    wrapper.querySelector('.market_commodity_orders_table');
 
                 if (!autoPriceTable) {
                     return;
@@ -58,7 +59,7 @@ export default {
         wrapper.insertAdjacentHTML('beforeend', itemPageHTML);
         document.body.appendChild(wrapper);
 
-        const priceElement = wrapper.querySelector('.my_listing_section .market_listing_row .market_listing_price');
+        const priceElement = wrapper.querySelector('.my_listing_section:not(#tabContentsMyActiveMarketListingsTable) .market_listing_row .market_listing_price');
 
         let result = 0;
 
@@ -106,5 +107,11 @@ export default {
         } catch (error) {
             return null;
         }
+    },
+
+    getModifiedItemName(itemName) {
+        return itemName.startsWith('Inscribed')
+            ? itemName.replace('Inscribed ', '')
+            : `Inscribed ${itemName}`;
     },
 }

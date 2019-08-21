@@ -1,40 +1,50 @@
 <template>
     <div class="st-tooltip">
+        <h4>{{itemData.itemName}}</h4>
+
+        <div class="separator"></div>
+
         <table>
             <tr>
-                <td>{{itemData.itemName}}</td>
-                <td>{{itemData.price}} ({{itemData.auto}})</td>
-            </tr>
-
-            <tr>
-                <td>{{itemData.modifiedItemName}}</td>
-                <td>{{// itemData.profit.toFixed(2)}}</td>
-            </tr>
-
-            <tr>
-                <td>Прибыль</td>
+                <td>Автопокупка</td>
                 <td :class="{
                     green: itemData.profit > 0,
                     red: itemData.profit < 0,
-                }">{{// itemData.profit.toFixed(2)}}</td>
+                }">{{itemData.profit.toFixed(2)}}</td>
             </tr>
 
-            <tr><td colspan="2">
-                <a
-                    target="_blank"
-                    :href="'https://steamcommunity.com/market/listings/570/' + encodeURIComponent(itemData.modifiedItemName)"
-                >Поменять местами</a>
-            </td></tr>
+            <tr>
+                <td>Моя автопокупка</td>
+                <td :class="{
+                    green: itemData.myAutoProfit > 0,
+                    red: itemData.myAutoProfit < 0,
+                }">{{itemData.myAutoProfit.toFixed(2)}}</td>
+            </tr>
 
             <tr>
-                <td>
-                    <button @click="removeFromBookmarks" v-if="itemData.isBookmarked">Убрать из закладок</button>
-                    <button @click="bookmarkItem" v-else>Добавить в закладки</button>
-                </td>
+                <td>Покупка лота</td>
+                <td :class="{
+                    green: itemData.buyProfit > 0,
+                    red: itemData.buyProfit < 0,
+                }">{{itemData.buyProfit.toFixed(2)}}</td>
             </tr>
         </table>
 
+        <div class="separator"></div>
 
+        <a
+            target="_blank"
+            :href="'https://steamcommunity.com/market/listings/570/' + encodeURIComponent(itemData.companionItemName)"
+        >Показать смежный предмет</a>
+
+        <div class="separator"></div>
+
+        <div class="actions-wrap">
+            <button @click="removeFromBookmarks" v-if="itemData.isBookmarked">Не отслеживать</button>
+            <button @click="bookmarkItem" v-else>Отслеживать</button>
+
+            <button @click="getItemInfo">Обновить</button>
+        </div>
     </div>
 </template>
 
@@ -52,11 +62,7 @@
                     itemId: 0,
                     itemName: '',
                     isBookmarked: false,
-                    modifiedItemName: '',
-                    price: 0,
-                    buyPrice: 0,
-                    auto: 0,
-                    myAuto: 0,
+                    companionItemName: '',
                     profit: 0,
                     buyProfit: 0,
                     myAutoProfit: 0,
@@ -68,11 +74,11 @@
             bookmarkItem() {
                 sendMessageToBackground({
                     action: 'addToBookmarks',
-                    itemId: this.itemId,
-                    itemName: this.itemName,
+                    itemId: this.itemData.itemId,
+                    itemName: this.itemData.itemName,
                 }, ({ result }) => {
                     if (result) {
-                        this.isBookmarked = true;
+                        this.itemData.isBookmarked = true;
                     }
                 })
             },
@@ -80,10 +86,10 @@
             removeFromBookmarks() {
                 sendMessageToBackground({
                     action: 'removeFromBookmarks',
-                    itemId: this.itemId,
+                    itemId: this.itemData.itemId,
                 }, ({ result }) => {
                     if (result) {
-                        this.isBookmarked = false;
+                        this.itemData.isBookmarked = false;
                     }
                 });
             },
@@ -93,32 +99,17 @@
 
                 itemData.status = 'loading';
 
-                const itemPrices = await new Promise(async (resolve) => {
-                    const data = await SteamItemsService.getItemData(itemData);
-                    resolve(data);
-                });
-
-                const companionItemPrices = await new Promise((resolve) => {
-                    setTimeout(async () => {
-                        const data = await SteamItemsService.getItemData({
-                            itemName: itemData.normalizedName,
-                        });
-
-                        resolve(data);
-                    }, 1000);
+                const itemPrices = await SteamItemsService.getItemData(itemData);
+                const companionItemPrices = await SteamItemsService.getItemData({
+                    itemName: itemData.companionItemName,
                 });
 
                 const { autoPrice, myAutoPrice, lowestLotPrice } = itemPrices;
                 const { lowestLotPrice: companionLowestLotPrice } = companionItemPrices;
 
-                itemData.price = companionLowestLotPrice;
-                itemData.buyPrice = lowestLotPrice;
-                itemData.auto = autoPrice;
-                itemData.myAuto = myAutoPrice;
-
-                itemData.profit = itemData.price * 0.87 - itemData.auto;
-                itemData.buyProfit = itemData.price * 0.87 - itemData.buyPrice;
-                itemData.myAutoProfit = itemData.myAuto ? itemData.price * 0.87 - itemData.myAuto : 0;
+                itemData.profit = companionLowestLotPrice * 0.87 - autoPrice;
+                itemData.buyProfit = companionLowestLotPrice * 0.87 - lowestLotPrice;
+                itemData.myAutoProfit = myAutoPrice ? companionLowestLotPrice * 0.87 - myAutoPrice : 0;
 
                 itemData.status = 'loaded';
             },
@@ -127,9 +118,9 @@
         async created() {
             const itemName = document.title.replace(/.*Лоты /, '');
 
-            this.itemData = Object.assign({}, {
+            this.itemData = Object.assign({}, this.itemData, {
                 itemName,
-                modifiedItemName: itemName.replace('Inscribed', ''),
+                companionItemName: SteamItemsService.getModifiedItemName(itemName),
                 itemId: window.itemid,
             });
 
@@ -140,7 +131,7 @@
                 this.itemData.isBookmarked = result;
             });
 
-            this.getItemInfo();
+            await this.getItemInfo();
         }
     }
 </script>
@@ -151,10 +142,21 @@
         position: fixed;
         top: 0;
         right: 0;
-        width: 320px;
+        width: 250px;
         padding: 12px;
         border-radius: 0 0 0 10px;
         z-index: 99999;
+
+        table {
+            margin: 12px 0;
+        }
+
+        .separator {
+            margin: 12px 0;
+            background: #121212;
+            height: 1px;
+            width: 100%;
+        }
 
         &.big {
             width: 600px;
@@ -166,12 +168,19 @@
 
         a {
             display: block;
-            /*text-align: center;*/
             padding: 3px 0;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        button {
+            display: inline-block;
+            margin: 0 auto;
+            margin-right: 12px;
         }
 
         td {
-            padding: 3px 6px;
+            padding: 3px 0;
         }
 
         td.green {
@@ -186,8 +195,12 @@
             width: 200px;
         }
 
-        tr.off {
-            opacity: 0.3;
+        .actions-wrap {
+            text-align: center;
+        }
+
+        h4 {
+            font-size: 16px;
         }
     }
 </style>
