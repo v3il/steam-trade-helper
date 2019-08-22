@@ -7,9 +7,8 @@
       <change beforePath="$PROJECT_DIR$/content_scripts/Bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/Bootstrap.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.css" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SteamItemsService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/SteamItemsService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ItemDataTooltip.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ItemDataTooltip.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/sendMessageToBackground.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/sendMessageToBackground.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,8 +24,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/ItemDataTooltip.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="202" column="21" selection-start-line="202" selection-start-column="21" selection-end-line="202" selection-end-column="21" />
+            <state relative-caret-position="261">
+              <caret line="168" column="25" selection-start-line="168" selection-start-column="25" selection-end-line="168" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/common-style.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/sendMessageToBackground.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="34" selection-start-column="34" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -34,7 +51,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/Background.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="683">
+            <state relative-caret-position="1200">
               <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
             </state>
           </provider>
@@ -43,7 +60,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SteamItemsService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
+            <state relative-caret-position="696">
               <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
             </state>
           </provider>
@@ -64,7 +81,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
+            <state relative-caret-position="6192">
               <caret line="263" column="20" selection-start-line="263" selection-start-column="20" selection-end-line="263" selection-end-column="20" />
               <folding>
                 <element signature="e#3856#3892#0" expanded="true" />
@@ -78,9 +95,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Less File" />
         <option value="Vue Single File Component" />
         <option value="JavaScript File" />
+        <option value="Less File" />
       </list>
     </option>
   </component>
@@ -143,13 +160,14 @@
         <option value="$PROJECT_DIR$/src/ІеуфьШеуьіІукмшсу.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/utils/sendMessageToBackground.js" />
         <option value="$PROJECT_DIR$/src/utils/makeNotification.js" />
         <option value="$PROJECT_DIR$/src/js/Background.js" />
         <option value="$PROJECT_DIR$/src/components/VDialog.vue" />
         <option value="$PROJECT_DIR$/src/FirebaseItemsService.js" />
         <option value="$PROJECT_DIR$/src/SteamItemsService.js" />
         <option value="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" />
+        <option value="$PROJECT_DIR$/src/utils/sendMessageToBackground.js" />
+        <option value="$PROJECT_DIR$/src/common-style.less" />
         <option value="$PROJECT_DIR$/src/components/ItemDataTooltip.vue" />
       </list>
     </option>
@@ -290,12 +308,15 @@
       <workItem from="1566227454820" duration="8834000" />
       <workItem from="1566286984152" duration="615000" />
       <workItem from="1566321536325" duration="1901000" />
-      <workItem from="1566401439984" duration="4074000" />
+      <workItem from="1566401439984" duration="4411000" />
+      <workItem from="1566457638216" duration="133000" />
+      <workItem from="1566469130587" duration="3000" />
+      <workItem from="1566487466217" duration="1792000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100363000" />
+    <option name="totallyTimeSpent" value="102628000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -315,7 +336,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.156013" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.14517877" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -463,34 +484,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/sendMessageToBackground.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="1" lean-forward="true" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/FirebaseItemsService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/icons.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/Background.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -520,14 +517,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SteamItemsService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
+        <state relative-caret-position="696">
           <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FirebaseItemsService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
+        <state relative-caret-position="6192">
           <caret line="263" column="20" selection-start-line="263" selection-start-column="20" selection-end-line="263" selection-end-column="20" />
           <folding>
             <element signature="e#3856#3892#0" expanded="true" />
@@ -535,10 +542,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/Background.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="50" column="37" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/sendMessageToBackground.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="34" selection-start-column="34" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common-style.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ItemDataTooltip.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="202" column="21" selection-start-line="202" selection-start-column="21" selection-end-line="202" selection-end-column="21" />
+        <state relative-caret-position="261">
+          <caret line="168" column="25" selection-start-line="168" selection-start-column="25" selection-end-line="168" selection-end-column="25" />
         </state>
       </provider>
     </entry>
