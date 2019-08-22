@@ -1,4 +1,4 @@
-import FirebaseItemsService from '../FirebaseItemsService';
+import FirebaseItemsService from '../service/FirebaseItemsService';
 
 chrome.runtime.onMessageExternal.addListener(async function(message, sender, sendResponse) {
     const { action } = message;

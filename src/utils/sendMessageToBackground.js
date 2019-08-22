@@ -1,4 +1,4 @@
-export default async (action, data) => {
+export default async (action, data = {}) => {
     data.action = action;
 
     return new Promise((resolve) => {

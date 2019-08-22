@@ -1,6 +1,7 @@
+<!--suppress JSIgnoredPromiseFromCall -->
 <template>
     <div>
-        <VDialog :isVisible="dialogShowed" @close="dialogShowed = false">
+        <VDialog :isVisible="dialogShown" @close="dialogShown = false">
 
             <button @click="loadData">Обновить всё</button>
 
@@ -108,7 +109,7 @@
     import sendMessageToBackground from '../utils/sendMessageToBackground';
     import makeNotification from '../utils/makeNotification';
 
-    import SteamItemsService from '../SteamItemsService';
+    import SteamItemsService from '../service/SteamItemsService';
 
     export default {
         name: "BookmarkedItemsData",
@@ -119,7 +120,7 @@
 
         data() {
             return {
-                dialogShowed: false,
+                dialogShown: false,
                 firstRender: true,
                 allItemsData: [],
 
@@ -173,7 +174,7 @@
             },
 
             open() {
-                this.dialogShowed = true;
+                this.dialogShown = true;
 
                 if (this.firstRender) {
                     this.loadData();
@@ -193,8 +194,7 @@
                         title: 'Есть выгодные предметы!',
                         body: goodProfitItems.map(item => item.normalizedName).join(', '),
                     }, () => {
-                        sendMessageToBackground({
-                            action: 'openTabs',
+                        sendMessageToBackground('openTabs', {
                             urls: goodProfitItems.map((item) => {
                                 return `https://steamcommunity.com/market/listings/570/${item.itemName}`;
                             }),
@@ -203,41 +203,35 @@
                 }
             },
 
-            removeItemFromBookmarks(itemData) {
+            async removeItemFromBookmarks(itemData) {
                 const { itemId } = itemData;
+                const { result } = await sendMessageToBackground('removeFromBookmarks', { itemId });
 
-                sendMessageToBackground({
-                    itemId,
-                    action: 'removeFromBookmarks',
-                }, ({ result }) => {
-                    if (result) {
-                        this.allItemsData = this.allItemsData.filter(item => item.itemId !== itemId);
-                    }
-                });
+                if (result) {
+                    this.allItemsData = this.allItemsData.filter(item => item.itemId !== itemId);
+                }
             }
         },
 
-        created() {
-            sendMessageToBackground({ action: 'getSettings' }, (settings) => {
-                this.settings = Object.assign({}, this.settings, settings);
-            });
+        async created() {
+            const settings = await sendMessageToBackground('getSettings');
+            this.settings = Object.assign({}, this.settings, settings);
 
-            sendMessageToBackground({ action: 'getBookmarkedItems' }, (items) => {
-                this.allItemsData = items.map((item) => ({
-                    ...item,
-                    normalizedName: item.itemName.replace('Inscribed ', ''),
-                    auto: 0,
-                    myAuto: 0,
-                    myAutoProfit: 0,
-                    price: 0,
-                    profit: 0,
-                    buyProfit: 0,
-                    status: 'initialized',
-                }));
-            });
+            const items = await sendMessageToBackground('getBookmarkedItems');
+            this.allItemsData = items.map((item) => ({
+                ...item,
+                normalizedName: item.itemName.replace('Inscribed ', ''),
+                auto: 0,
+                myAuto: 0,
+                myAutoProfit: 0,
+                price: 0,
+                profit: 0,
+                buyProfit: 0,
+                status: 'initialized',
+            }));
 
             setInterval(() => {
-                if (this.dialogShowed && this.settings.autoReloadItemsData) {
+                if (this.dialogShown && this.settings.autoReloadItemsData) {
                     console.log('Reload')
                     this.loadData();
                 }

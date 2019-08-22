@@ -54,7 +54,11 @@
 
 <script>
     import sendMessageToBackground from '../utils/sendMessageToBackground';
-    import SteamItemsService from '../SteamItemsService';
+    import SteamItemsService from '../service/SteamItemsService';
+
+    import Constants from '../Constants';
+
+    const { STEAM_FEE_MULTIPLIER } = Constants;
 
     export default {
         name: "ItemDataTooltip",
@@ -106,9 +110,9 @@
                 const { autoPrice, myAutoPrice, lowestLotPrice } = itemPrices;
                 const { lowestLotPrice: companionLowestLotPrice } = companionItemPrices;
 
-                itemData.profit = companionLowestLotPrice * 0.87 - autoPrice;
-                itemData.buyProfit = companionLowestLotPrice * 0.87 - lowestLotPrice;
-                itemData.myAutoProfit = myAutoPrice ? companionLowestLotPrice * 0.87 - myAutoPrice : 0;
+                itemData.profit = companionLowestLotPrice * STEAM_FEE_MULTIPLIER - autoPrice;
+                itemData.buyProfit = companionLowestLotPrice * STEAM_FEE_MULTIPLIER - lowestLotPrice;
+                itemData.myAutoProfit = myAutoPrice ? companionLowestLotPrice * STEAM_FEE_MULTIPLIER - myAutoPrice : 0;
 
                 itemData.status = 'loaded';
             },
