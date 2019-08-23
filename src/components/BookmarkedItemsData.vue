@@ -1,4 +1,3 @@
-<!--suppress JSIgnoredPromiseFromCall -->
 <template>
     <div>
         <VDialog :isVisible="dialogShown" @close="dialogShown = false">
@@ -10,13 +9,13 @@
             <table class="items-table">
                 <tr>
                     <td>Название</td>
-                    <td>Авто</td>
-                    <td>Моя авто</td>
+                    <td>Автопокупка</td>
+                    <td>Моя автопокупка</td>
                     <td>Продажа</td>
                     <td>Прибыль</td>
                     <td>Моя прибыль</td>
-                    <td>Куп. Прибыль</td>
-                    <td>Разница авто</td>
+                    <td>Покупка лота</td>
+                    <td>Разница автопокупки</td>
                     <td>&nbsp;</td>
                 </tr>
 
@@ -25,40 +24,40 @@
 
                     <td>
                         <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
-                            {{itemData.auto.toFixed(2)}}
+                            {{itemData.auto | format}}
                         </a>
                     </td>
 
                     <td>
                         <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
-                            {{itemData.myAuto.toFixed(2)}}
+                            {{itemData.myAuto | format}}
                         </a>
                     </td>
 
                     <td>
                         <a target="_blank" :href="'/market/listings/570/' + itemData.normalizedName">
-                            {{itemData.price.toFixed(2)}}
+                            {{itemData.price | format}}
                         </a>
                     </td>
 
                     <td :class="{
                         green: itemData.profit > 0,
                         red: itemData.profit < 0,
-                    }">{{itemData.profit.toFixed(2)}}</td>
+                    }">{{itemData.profit | format}}</td>
 
                     <td :class="{
                         green: itemData.myAutoProfit > 0,
                         red: itemData.myAutoProfit < 0,
-                    }">{{itemData.myAutoProfit.toFixed(2)}}</td>
+                    }">{{itemData.myAutoProfit | format}}</td>
 
                     <td :class="{
                         green: itemData.buyProfit > 0,
                         red: itemData.buyProfit < 0,
-                    }">{{itemData.buyProfit.toFixed(2)}}</td>
+                    }">{{itemData.buyProfit | format}}</td>
 
                     <td :class="{
                         red: itemData.auto - itemData.myAuto < 15,
-                    }">{{(itemData.auto - itemData.myAuto).toFixed(2)}}</td>
+                    }">{{(itemData.myAuto === 0 ? 0 : itemData.auto - itemData.myAuto) | format}}</td>
 
                     <td>
                         <span
@@ -70,8 +69,8 @@
                             &#x21bb;
                         </span>
 
-                        <span @dblclick="removeItemFromBookmarks(itemData)" class="action-button remove">
-                            &#9851;
+                        <span v-if="itemData.status !== 'loading'"  @dblclick="removeItemFromBookmarks(itemData)" class="action-button remove">
+                            &times;
                         </span>
                     </td>
                 </tr>
@@ -80,22 +79,27 @@
             <div class="separator"></div>
 
             <div>
-                <label for="showNotifications">
-                    <input type="checkbox" id="showNotifications" v-model="settings.showNotifications">
+                <div>
+                    <input type="checkbox" v-model="settings.showNotifications">
 
                     Показывать уведомления
-                </label>
+                </div>
 
-                <label for="autoUpdateData">
-                    <input type="checkbox" id="autoUpdateData" v-model="settings.autoReloadItemsData">
+                <div>
+                    <input type="checkbox" v-model="settings.autoReloadItemsData">
 
                     Автоматически обновлять данные предметов
-                </label>
+                </div>
 
-                <label for="notificationPrice">
+                <div>
                     Цена предмета для оповещения
-                    <input type="number" id="notificationPrice" v-model="settings.notifyOnPrice">
-                </label>
+                    <input type="number" v-model.number="settings.notifyOnPrice">
+                </div>
+
+                <div>
+                    Обновлять данные через (минут):
+                    <input type="number" v-model.number="settings.refreshInterval">
+                </div>
             </div>
         </VDialog>
 
@@ -111,12 +115,22 @@
 
     import SteamItemsService from '../service/SteamItemsService';
 
+    import formatPrice from '../vue-mixins/formatPrice';
+
+    import Constants from '../Constants';
+
+    const { STEAM_FEE_MULTIPLIER } = Constants;
+
     export default {
         name: "BookmarkedItemsData",
 
         components: {
             VDialog,
         },
+
+        mixins: [
+            formatPrice
+        ],
 
         data() {
             return {
@@ -128,6 +142,7 @@
                     showNotifications: true,
                     autoReloadItemsData: true,
                     notifyOnPrice: 7,
+                    refreshInterval: 4,
                 }
             }
         },
@@ -155,7 +170,7 @@
                         });
 
                         resolve(data);
-                    }, 1000);
+                    }, 500);
                 });
 
                 const { autoPrice, myAutoPrice, lowestLotPrice } = itemPrices;
@@ -166,9 +181,9 @@
                 itemData.auto = autoPrice;
                 itemData.myAuto = myAutoPrice;
 
-                itemData.profit = itemData.price * 0.87 - itemData.auto;
-                itemData.buyProfit = itemData.price * 0.87 - itemData.buyPrice;
-                itemData.myAutoProfit = itemData.myAuto ? itemData.price * 0.87 - itemData.myAuto : 0;
+                itemData.profit = itemData.price * STEAM_FEE_MULTIPLIER - itemData.auto;
+                itemData.buyProfit = itemData.price * STEAM_FEE_MULTIPLIER - itemData.buyPrice;
+                itemData.myAutoProfit = itemData.myAuto ? itemData.price * STEAM_FEE_MULTIPLIER - itemData.myAuto : 0;
 
                 itemData.status = 'loaded';
             },
@@ -185,21 +200,17 @@
             async loadData() {
                 for (const itemData of this.sortedItemsData) {
                     await this.getItemInfo(itemData);
-                }
 
-                const goodProfitItems = this.sortedItemsData.filter(item => item.buyProfit > this.settings.notifyOnPrice);
-
-                if (goodProfitItems.length && this.settings.showNotifications) {
-                    makeNotification({
-                        title: 'Есть выгодные предметы!',
-                        body: goodProfitItems.map(item => item.normalizedName).join(', '),
-                    }, () => {
-                        sendMessageToBackground('openTabs', {
-                            urls: goodProfitItems.map((item) => {
-                                return `https://steamcommunity.com/market/listings/570/${item.itemName}`;
-                            }),
+                    if (itemData.buyProfit > this.settings.notifyOnPrice) {
+                        makeNotification({
+                            title: 'Есть выгодные предметы!',
+                            body: itemData.normalizedName,
+                        }, () => {
+                            sendMessageToBackground('openTabs', {
+                                urls: [`https://steamcommunity.com/market/listings/570/${itemData.itemName}`],
+                            });
                         });
-                    });
+                    }
                 }
             },
 
@@ -235,7 +246,7 @@
                     console.log('Reload')
                     this.loadData();
                 }
-            }, 4 * 60 * 1000);
+            }, this.settings.refreshInterval * 60 * 1000);
         },
 
         watch: {
@@ -243,10 +254,9 @@
                 deep: true,
 
                 handler(value) {
-                    sendMessageToBackground({
-                        action: 'updateSettings',
+                    sendMessageToBackground('updateSettings', {
                         settings: value,
-                    })
+                    });
                 }
             }
         }
@@ -258,7 +268,7 @@
         color: #ccc;
 
         td:first-child {
-            width: 150px;
+            width: 180px;
         }
 
         td {

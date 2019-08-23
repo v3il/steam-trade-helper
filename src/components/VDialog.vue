@@ -1,7 +1,7 @@
 <template>
     <div class="vdialog-overlay js-vdialog-overlay" v-show="visible">
         <div class="vdialog-overlay__inner-wrap" @click.self="triggerClose">
-            <div class="vdialog-overlay__inner" :style="{maxWidth: '1000px'}">
+            <div class="vdialog-overlay__inner" :style="{maxWidth: '1100px'}">
                 <div class="u-content_h3 vdialog-overlay__header">
                     <div class="vdialog-overlay__title"></div>
 
