@@ -13,6 +13,7 @@ const webpackConfig = {
         "SteamAutoTrader": "./src/js/SteamAutoTrader.js",
         "Bootstrap": "./src/js/Bootstrap.js",
         "Background": "./src/js/Background.js",
+        "Settings": "./src/js/SettingsComponent.js",
     },
 
     cache: true,

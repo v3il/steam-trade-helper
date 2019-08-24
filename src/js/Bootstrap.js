@@ -1,3 +1,6 @@
+import '@/js/background_actions/initSettingsComponent.js';
+
+
 const distFolderPath = 'content_scripts';
 
 const body = document.body;
