@@ -21,6 +21,8 @@
 
 <script>
     export default {
+        name: 'VDialog',
+
         props: {
             isVisible: {
                 type: Boolean,

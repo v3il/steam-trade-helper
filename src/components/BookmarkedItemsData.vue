@@ -1,6 +1,6 @@
 <template>
     <div>
-        <VDialog :isVisible="dialogShown" @close="dialogShown = false">
+        <!--<VDialog :isVisible="dialogShown" @close="dialogShown = false">-->
 
             <button @click="loadData">Обновить всё</button>
 
@@ -75,35 +75,7 @@
                     </td>
                 </tr>
             </table>
-
-            <div class="separator"></div>
-
-            <div>
-                <div>
-                    <input type="checkbox" v-model="settings.showNotifications">
-
-                    Показывать уведомления
-                </div>
-
-                <div>
-                    <input type="checkbox" v-model="settings.autoReloadItemsData">
-
-                    Автоматически обновлять данные предметов
-                </div>
-
-                <div>
-                    Цена предмета для оповещения
-                    <input type="number" v-model.number="settings.notifyOnPrice">
-                </div>
-
-                <div>
-                    Обновлять данные через (минут):
-                    <input type="number" v-model.number="settings.refreshInterval">
-                </div>
-            </div>
-        </VDialog>
-
-
+        <!--</VDialog>-->
     </div>
 </template>
 
@@ -118,6 +90,7 @@
     import formatPrice from '../vue-mixins/formatPrice';
 
     import Constants from '../Constants';
+    import EventBus from '../EventBus';
 
     const { STEAM_FEE_MULTIPLIER } = Constants;
 
@@ -138,12 +111,7 @@
                 firstRender: true,
                 allItemsData: [],
 
-                settings: {
-                    showNotifications: true,
-                    autoReloadItemsData: true,
-                    notifyOnPrice: 7,
-                    refreshInterval: 4,
-                }
+                settings: {}
             }
         },
 
@@ -188,13 +156,31 @@
                 itemData.status = 'loaded';
             },
 
-            open() {
+            startPolling() {
+
+                console.log('Start')
+
+                // todo
+
                 this.dialogShown = true;
 
                 if (this.firstRender) {
                     this.loadData();
                     this.firstRender = false;
                 }
+            },
+
+            stopPolling() {
+                console.log('Stop')
+
+                // todo
+
+                this.dialogShown = false;
+
+                // if (this.firstRender) {
+                //     this.loadData();
+                //     this.firstRender = false;
+                // }
             },
 
             async loadData() {
@@ -226,7 +212,13 @@
 
         async created() {
             const settings = await sendMessageToBackground('getSettings');
-            this.settings = Object.assign({}, this.settings, settings);
+            this.settings = Object.assign({}, settings);
+
+            // EventBus.$on('settings-update', (settings) => {
+            //     console.log('Update2')
+            //
+            //     this.settings = Object.assign({}, this.settings, settings);
+            // });
 
             const items = await sendMessageToBackground('getBookmarkedItems');
             this.allItemsData = items.map((item) => ({
@@ -248,18 +240,6 @@
                 }
             }, this.settings.refreshInterval * 60 * 1000);
         },
-
-        watch: {
-            settings: {
-                deep: true,
-
-                handler(value) {
-                    sendMessageToBackground('updateSettings', {
-                        settings: value,
-                    });
-                }
-            }
-        }
     }
 </script>
 

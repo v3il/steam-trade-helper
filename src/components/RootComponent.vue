@@ -1,7 +1,5 @@
 <template>
-    <div class="steam-auto-trader-root">
-        <ItemDataTooltip></ItemDataTooltip>
-    </div>
+    <ItemDataTooltip />
 </template>
 
 <script>
