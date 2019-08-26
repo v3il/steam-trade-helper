@@ -11,8 +11,8 @@
                 <td class="items_table-cell">Моя автопокупка</td>
                 <td class="items_table-cell">Продажа</td>
                 <td class="items_table-cell">Прибыль</td>
-                <td class="items_table-cell">Моя прибыль</td>
-                <td class="items_table-cell">Покупка лота</td>
+                <td class="items_table-cell items_table-cell-my-profit">Моя прибыль</td>
+                <td class="items_table-cell items_table-cell-buy-profit">Покупка лота</td>
                 <td class="items_table-cell">Разница автопокупки</td>
                 <td class="items_table-cell items_table-cell-actions">&nbsp;</td>
             </tr>
@@ -47,12 +47,12 @@
                     'items_table-cell--negative': itemData.profit < 0,
                 }">{{itemData.profit | format}}</td>
 
-                <td class="items_table-cell" :class="{
+                <td class="items_table-cell items_table-cell-my-profit" :class="{
                     'items_table-cell--positive': itemData.myAutoProfit > 0,
                     'items_table-cell--negative': itemData.myAutoProfit < 0,
                 }">{{itemData.myAutoProfit | format}}</td>
 
-                <td class="items_table-cell" :class="{
+                <td class="items_table-cell items_table-cell-buy-profit" :class="{
                     'items_table-cell--positive': itemData.buyProfit > 0,
                     'items_table-cell--negative': itemData.buyProfit < 0,
                 }">{{itemData.buyProfit | format}}</td>
@@ -213,6 +213,8 @@
                             });
                         });
                     }
+
+                    console.clear();
                 }
             },
 
@@ -292,6 +294,16 @@
 
         &_table-cell-actions {
             display: flex;
+        }
+
+        &_table-cell-my-profit {
+            border-left: 1px solid #121212;
+            text-align: center;
+        }
+
+        &_table-cell-buy-profit {
+            border-right: 1px solid #121212;
+            text-align: center;
         }
 
         &_action-btn {
