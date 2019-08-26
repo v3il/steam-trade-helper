@@ -3,18 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e2cee6d1-2ac9-480f-958e-55347e7f6bbe" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content_scripts/Background.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/Background.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content_scripts/Bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/Bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/content_scripts/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/Settings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.css" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventBus.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MarketPageComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarketPageComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SettingsComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/SettingsComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/SteamItemsService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/SteamItemsService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,11 +42,22 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="216" column="12" selection-start-line="216" selection-start-column="12" selection-end-line="216" selection-end-column="12" />
+            <state relative-caret-position="-2434">
+              <caret line="66" column="52" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
               <folding>
                 <element signature="e#2834#2905#0" expanded="true" />
-                <element signature="e#4253#5621#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/ItemDataTooltip.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3003">
+              <caret line="146" column="21" lean-forward="true" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="21" />
+              <folding>
+                <element signature="e#2160#2231#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,7 +76,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Foca</find>
       <find>close</find>
       <find>allItemsData</find>
       <find>loadData</find>
@@ -104,6 +105,7 @@
       <find>itemsComponent</find>
       <find>dialogShown</find>
       <find>firstRender</find>
+      <find>removeItemFromBookmarks</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -325,12 +327,12 @@
       <workItem from="1566730781192" duration="2731000" />
       <workItem from="1566733536422" duration="1363000" />
       <workItem from="1566801141940" duration="969000" />
-      <workItem from="1566802128676" duration="5700000" />
+      <workItem from="1566802128676" duration="8867000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122687000" />
+    <option name="totallyTimeSpent" value="125854000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -350,7 +352,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.12134345" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.16143012" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -569,16 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ItemDataTooltip.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="146" column="21" lean-forward="true" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="21" />
-          <folding>
-            <element signature="e#2160#2231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/service/SteamItemsService.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-648">
@@ -627,13 +619,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ItemDataTooltip.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3003">
+          <caret line="146" column="21" lean-forward="true" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="21" />
+          <folding>
+            <element signature="e#2160#2231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="216" column="12" selection-start-line="216" selection-start-column="12" selection-end-line="216" selection-end-column="12" />
+        <state relative-caret-position="-2434">
+          <caret line="66" column="52" selection-start-line="66" selection-start-column="52" selection-end-line="66" selection-end-column="52" />
           <folding>
             <element signature="e#2834#2905#0" expanded="true" />
-            <element signature="e#4253#5621#0" />
           </folding>
         </state>
       </provider>

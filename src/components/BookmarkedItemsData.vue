@@ -1,75 +1,81 @@
 <template>
-    <div>
+    <div class="items">
         <button @click="loadData">Обновить всё</button>
 
         <div class="separator"></div>
 
-        <table class="items-table">
-            <tr>
-                <td>Название</td>
-                <td>Автопокупка</td>
-                <td>Моя автопокупка</td>
-                <td>Продажа</td>
-                <td>Прибыль</td>
-                <td>Моя прибыль</td>
-                <td>Покупка лота</td>
-                <td>Разница автопокупки</td>
-                <td>&nbsp;</td>
+        <table class="items_table">
+            <tr class="items_table-row">
+                <td class="items_table-cell items_table-cell-name">Название</td>
+                <td class="items_table-cell">Автопокупка</td>
+                <td class="items_table-cell">Моя автопокупка</td>
+                <td class="items_table-cell">Продажа</td>
+                <td class="items_table-cell">Прибыль</td>
+                <td class="items_table-cell">Моя прибыль</td>
+                <td class="items_table-cell">Покупка лота</td>
+                <td class="items_table-cell">Разница автопокупки</td>
+                <td class="items_table-cell items_table-cell-actions">&nbsp;</td>
             </tr>
 
-            <tr v-for="itemData in sortedItemsData" :class="{'off': itemData.profit < 5 && itemData.myAutoProfit < 5 && itemData.status === 'loaded'}">
-                <td>{{itemData.normalizedName}}</td>
+            <tr v-for="itemData in sortedItemsData" class="items_table-row" :class="{
+                'items_table-row--meager': itemData.isMeagerItem
+            }">
+                <td class="items_table-cell items_table-cell-name">
+                    {{itemData.normalizedName}}
+                </td>
 
-                <td>
+                <td class="items_table-cell">
                     <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
                         {{itemData.auto | format}}
                     </a>
                 </td>
 
-                <td>
+                <td class="items_table-cell">
                     <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
                         {{itemData.myAuto | format}}
                     </a>
                 </td>
 
-                <td>
+                <td class="items_table-cell">
                     <a target="_blank" :href="'/market/listings/570/' + itemData.normalizedName">
                         {{itemData.price | format}}
                     </a>
                 </td>
 
-                <td :class="{
-                    green: itemData.profit > 0,
-                    red: itemData.profit < 0,
+                <td class="items_table-cell" :class="{
+                    'items_table-cell--positive': itemData.profit > 0,
+                    'items_table-cell--negative': itemData.profit < 0,
                 }">{{itemData.profit | format}}</td>
 
-                <td :class="{
-                    green: itemData.myAutoProfit > 0,
-                    red: itemData.myAutoProfit < 0,
+                <td class="items_table-cell" :class="{
+                    'items_table-cell--positive': itemData.myAutoProfit > 0,
+                    'items_table-cell--negative': itemData.myAutoProfit < 0,
                 }">{{itemData.myAutoProfit | format}}</td>
 
-                <td :class="{
-                    green: itemData.buyProfit > 0,
-                    red: itemData.buyProfit < 0,
+                <td class="items_table-cell" :class="{
+                    'items_table-cell--positive': itemData.buyProfit > 0,
+                    'items_table-cell--negative': itemData.buyProfit < 0,
                 }">{{itemData.buyProfit | format}}</td>
 
-                <td :class="{
-                    red: itemData.auto - itemData.myAuto < 15,
+                <td class="items_table-cell" :class="{
+                    'items_table-cell--negative': itemData.auto - itemData.myAuto < 15,
                 }">{{(itemData.myAuto === 0 ? 0 : itemData.auto - itemData.myAuto) | format}}</td>
 
-                <td>
-                    <span
-                        class="action-button warn"
-                        v-if="itemData.auto - itemData.myAuto < 1 && itemData.status === 'loaded'"
-                    >!!!</span>
+                <td class="items_table-cell items_table-cell-actions" v-if="itemData.status === 'loaded'">
+                    <i
+                        class="material-icons items_action-btn items_action-btn-warn"
+                        v-if="itemData.autoPriceWarn"
+                    >warning</i>
 
-                    <span v-if="itemData.status !== 'loading'" @click="getItemInfo(itemData)" class="action-button reload">
-                        &#x21bb;
-                    </span>
+                    <i
+                        class="material-icons items_action-btn"
+                        @click="getItemInfo(itemData)"
+                    >refresh</i>
 
-                    <span v-if="itemData.status !== 'loading'"  @dblclick="removeItemFromBookmarks(itemData)" class="action-button remove">
-                        &times;
-                    </span>
+                    <i
+                        class="material-icons items_action-btn items_action-btn-remove"
+                        @click="removeItemFromBookmarks(itemData)"
+                    >delete</i>
                 </td>
             </tr>
         </table>
@@ -158,6 +164,9 @@
                 itemData.buyProfit = itemData.price * STEAM_FEE_MULTIPLIER - itemData.buyPrice;
                 itemData.myAutoProfit = itemData.myAuto ? itemData.price * STEAM_FEE_MULTIPLIER - itemData.myAuto : 0;
 
+                itemData.isMeagerItem = itemData.profit < 5 && itemData.myAutoProfit < 5;
+                itemData.autoPriceWarn = itemData.auto - itemData.myAuto < 1;
+
                 itemData.status = 'loaded';
             },
 
@@ -202,11 +211,14 @@
             },
 
             async removeItemFromBookmarks(itemData) {
-                const { itemId } = itemData;
-                const { result } = await sendMessageToBackground('removeFromBookmarks', { itemId });
+                const { itemId, itemName } = itemData;
 
-                if (result) {
-                    this.allItemsData = this.allItemsData.filter(item => item.itemId !== itemId);
+                if (confirm(`Удалить "${itemName}" из закладок?`)) {
+                    const { result } = await sendMessageToBackground('removeFromBookmarks', { itemId });
+
+                    if (result) {
+                        this.allItemsData = this.allItemsData.filter(item => item.itemId !== itemId);
+                    }
                 }
             }
         },
@@ -224,6 +236,8 @@
                 profit: 0,
                 buyProfit: 0,
                 status: 'initialized',
+                isMeagerItem: false,
+                autoPriceWarn: false,
             }));
         },
 
@@ -242,67 +256,50 @@
 </script>
 
 <style scoped lang="less">
-    .items-table {
-        color: #ccc;
+    @import "../common-style";
 
-        td:first-child {
-            width: 180px;
+    .items {
+        &_table-row {
+            &--meager {
+                opacity: 0.3;
+            }
         }
 
-        td {
+        &_table-cell {
             min-width: 60px;
             padding: 3px 12px;
             height: 20px;
+            color: #ccc;
+
+            &--positive {
+                color: lightgreen;
+            }
+
+            &--negative {
+                color: lightcoral;
+            }
         }
 
-        td.green {
-            color: lightgreen;
+        &_table-cell-name {
+            width: 180px;
         }
 
-        td.red {
+        &_table-cell-actions {
+            display: flex;
+        }
+
+        &_action-btn {
+            font-size: 19px;
+            margin-right: 6px;
+            cursor: pointer;
+        }
+
+        &_action-btn-remove {
             color: lightcoral;
         }
 
-        td, a {
-            color: #ccc;
+        &_action-btn-warn {
+            color: darkorange;
         }
-
-        tr.off {
-            opacity: 0.3;
-        }
-
-        .action-button {
-            font-size: 20px;
-            display: inline-block;
-            margin-right: 12px;
-            line-height: 20px;
-            cursor: pointer;
-
-            &.remove {
-                color: lightcoral;
-            }
-
-            &.warn {
-                color: red;
-            }
-        }
-    }
-
-    label {
-        display: block;
-        margin: 6px 0 6px 12px;
-
-        input[type="text"], input[type="number"] {
-            background: #121212 !important;
-            width: 50px;
-            text-align: center;
-        }
-    }
-
-    .separator {
-        margin: 12px 0;
-        background: #121212;
-        height: 1px;
-        width: 100%;
     }
 </style>
