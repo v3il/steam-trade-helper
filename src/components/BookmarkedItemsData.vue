@@ -1,87 +1,82 @@
 <template>
     <div>
-        <!--<VDialog :isVisible="dialogShown" @close="dialogShown = false">-->
+        <button @click="loadData">Обновить всё</button>
 
-            <button @click="loadData">Обновить всё</button>
+        <div class="separator"></div>
 
-            <div class="separator"></div>
+        <table class="items-table">
+            <tr>
+                <td>Название</td>
+                <td>Автопокупка</td>
+                <td>Моя автопокупка</td>
+                <td>Продажа</td>
+                <td>Прибыль</td>
+                <td>Моя прибыль</td>
+                <td>Покупка лота</td>
+                <td>Разница автопокупки</td>
+                <td>&nbsp;</td>
+            </tr>
 
-            <table class="items-table">
-                <tr>
-                    <td>Название</td>
-                    <td>Автопокупка</td>
-                    <td>Моя автопокупка</td>
-                    <td>Продажа</td>
-                    <td>Прибыль</td>
-                    <td>Моя прибыль</td>
-                    <td>Покупка лота</td>
-                    <td>Разница автопокупки</td>
-                    <td>&nbsp;</td>
-                </tr>
+            <tr v-for="itemData in sortedItemsData" :class="{'off': itemData.profit < 5 && itemData.myAutoProfit < 5 && itemData.status === 'loaded'}">
+                <td>{{itemData.normalizedName}}</td>
 
-                <tr v-for="itemData in sortedItemsData" :class="{'off': itemData.profit < 5 && itemData.myAutoProfit < 5 && itemData.status === 'loaded'}">
-                    <td>{{itemData.normalizedName}}</td>
+                <td>
+                    <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
+                        {{itemData.auto | format}}
+                    </a>
+                </td>
 
-                    <td>
-                        <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
-                            {{itemData.auto | format}}
-                        </a>
-                    </td>
+                <td>
+                    <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
+                        {{itemData.myAuto | format}}
+                    </a>
+                </td>
 
-                    <td>
-                        <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
-                            {{itemData.myAuto | format}}
-                        </a>
-                    </td>
+                <td>
+                    <a target="_blank" :href="'/market/listings/570/' + itemData.normalizedName">
+                        {{itemData.price | format}}
+                    </a>
+                </td>
 
-                    <td>
-                        <a target="_blank" :href="'/market/listings/570/' + itemData.normalizedName">
-                            {{itemData.price | format}}
-                        </a>
-                    </td>
+                <td :class="{
+                    green: itemData.profit > 0,
+                    red: itemData.profit < 0,
+                }">{{itemData.profit | format}}</td>
 
-                    <td :class="{
-                        green: itemData.profit > 0,
-                        red: itemData.profit < 0,
-                    }">{{itemData.profit | format}}</td>
+                <td :class="{
+                    green: itemData.myAutoProfit > 0,
+                    red: itemData.myAutoProfit < 0,
+                }">{{itemData.myAutoProfit | format}}</td>
 
-                    <td :class="{
-                        green: itemData.myAutoProfit > 0,
-                        red: itemData.myAutoProfit < 0,
-                    }">{{itemData.myAutoProfit | format}}</td>
+                <td :class="{
+                    green: itemData.buyProfit > 0,
+                    red: itemData.buyProfit < 0,
+                }">{{itemData.buyProfit | format}}</td>
 
-                    <td :class="{
-                        green: itemData.buyProfit > 0,
-                        red: itemData.buyProfit < 0,
-                    }">{{itemData.buyProfit | format}}</td>
+                <td :class="{
+                    red: itemData.auto - itemData.myAuto < 15,
+                }">{{(itemData.myAuto === 0 ? 0 : itemData.auto - itemData.myAuto) | format}}</td>
 
-                    <td :class="{
-                        red: itemData.auto - itemData.myAuto < 15,
-                    }">{{(itemData.myAuto === 0 ? 0 : itemData.auto - itemData.myAuto) | format}}</td>
+                <td>
+                    <span
+                        class="action-button warn"
+                        v-if="itemData.auto - itemData.myAuto < 1 && itemData.status === 'loaded'"
+                    >!!!</span>
 
-                    <td>
-                        <span
-                            class="action-button warn"
-                            v-if="itemData.auto - itemData.myAuto < 1 && itemData.status === 'loaded'"
-                        >!!!</span>
+                    <span v-if="itemData.status !== 'loading'" @click="getItemInfo(itemData)" class="action-button reload">
+                        &#x21bb;
+                    </span>
 
-                        <span v-if="itemData.status !== 'loading'" @click="getItemInfo(itemData)" class="action-button reload">
-                            &#x21bb;
-                        </span>
-
-                        <span v-if="itemData.status !== 'loading'"  @dblclick="removeItemFromBookmarks(itemData)" class="action-button remove">
-                            &times;
-                        </span>
-                    </td>
-                </tr>
-            </table>
-        <!--</VDialog>-->
+                    <span v-if="itemData.status !== 'loading'"  @dblclick="removeItemFromBookmarks(itemData)" class="action-button remove">
+                        &times;
+                    </span>
+                </td>
+            </tr>
+        </table>
     </div>
 </template>
 
 <script>
-    import VDialog from './VDialog.vue';
-
     import sendMessageToBackground from '../utils/sendMessageToBackground';
     import makeNotification from '../utils/makeNotification';
 
@@ -90,28 +85,34 @@
     import formatPrice from '../vue-mixins/formatPrice';
 
     import Constants from '../Constants';
-    import EventBus from '../EventBus';
 
     const { STEAM_FEE_MULTIPLIER } = Constants;
 
     export default {
         name: "BookmarkedItemsData",
 
-        components: {
-            VDialog,
-        },
-
         mixins: [
             formatPrice
         ],
 
+        props: {
+            settingsData: {
+                type: Object,
+                default: () => ({}),
+            },
+
+            pollingStarted: {
+                type: Boolean,
+                default: false,
+            }
+        },
+
         data() {
             return {
-                dialogShown: false,
-                firstRender: true,
                 allItemsData: [],
 
-                settings: {}
+                polling: false,
+                pollingIntervalId: 0,
             }
         },
 
@@ -119,7 +120,11 @@
             sortedItemsData() {
                 const copy = [...this.allItemsData];
                 return copy.sort((a, b) => a.itemName.localeCompare(b.itemName));
-            }
+            },
+
+            settings() {
+                return this.settingsData;
+            },
         },
 
         methods: {
@@ -157,40 +162,36 @@
             },
 
             startPolling() {
+                console.log('Start');
 
-                console.log('Start')
+                this.pollingIntervalId = setInterval(() => {
+                    if (this.settings.autoReloadItemsData) {
+                        console.log('Reload')
+                        this.loadData();
+                    }
+                }, this.settings.refreshInterval * 60 * 1000);
 
-                // todo
-
-                this.dialogShown = true;
-
-                if (this.firstRender) {
-                    this.loadData();
-                    this.firstRender = false;
-                }
+                this.loadData();
             },
 
             stopPolling() {
-                console.log('Stop')
+                console.log('Stop');
 
-                // todo
-
-                this.dialogShown = false;
-
-                // if (this.firstRender) {
-                //     this.loadData();
-                //     this.firstRender = false;
-                // }
+                clearInterval(this.pollingIntervalId);
             },
 
             async loadData() {
                 for (const itemData of this.sortedItemsData) {
+                    if (!this.polling) {
+                        return console.log('Stop polling');
+                    }
+
                     await this.getItemInfo(itemData);
 
                     if (itemData.buyProfit > this.settings.notifyOnPrice) {
                         makeNotification({
                             title: 'Есть выгодные предметы!',
-                            body: itemData.normalizedName,
+                            body: `${itemData.normalizedName} (${itemData.buyProfit})`,
                         }, () => {
                             sendMessageToBackground('openTabs', {
                                 urls: [`https://steamcommunity.com/market/listings/570/${itemData.itemName}`],
@@ -211,16 +212,8 @@
         },
 
         async created() {
-            const settings = await sendMessageToBackground('getSettings');
-            this.settings = Object.assign({}, settings);
-
-            // EventBus.$on('settings-update', (settings) => {
-            //     console.log('Update2')
-            //
-            //     this.settings = Object.assign({}, this.settings, settings);
-            // });
-
             const items = await sendMessageToBackground('getBookmarkedItems');
+
             this.allItemsData = items.map((item) => ({
                 ...item,
                 normalizedName: item.itemName.replace('Inscribed ', ''),
@@ -232,14 +225,19 @@
                 buyProfit: 0,
                 status: 'initialized',
             }));
-
-            setInterval(() => {
-                if (this.dialogShown && this.settings.autoReloadItemsData) {
-                    console.log('Reload')
-                    this.loadData();
-                }
-            }, this.settings.refreshInterval * 60 * 1000);
         },
+
+        watch: {
+            pollingStarted(value) {
+                this.polling = value;
+
+                if (value) {
+                    this.startPolling();
+                } else {
+                    this.stopPolling();
+                }
+            }
+        }
     }
 </script>
 
@@ -254,6 +252,7 @@
         td {
             min-width: 60px;
             padding: 3px 12px;
+            height: 20px;
         }
 
         td.green {

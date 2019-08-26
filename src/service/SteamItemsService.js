@@ -57,7 +57,7 @@ export default {
     getMyAutoPrice(itemPageHTML) {
         const wrapper = document.createElement('div');
         wrapper.insertAdjacentHTML('beforeend', itemPageHTML);
-        document.body.appendChild(wrapper);
+        // document.body.appendChild(wrapper);
 
         const priceElement = wrapper.querySelector('.my_listing_section:not(#tabContentsMyActiveMarketListingsTable) .market_listing_row .market_listing_price');
 
@@ -70,7 +70,7 @@ export default {
             result = parseFloat(parsedPrice);
         }
 
-        wrapper.remove();
+        // wrapper.remove();
 
         return result;
     },
@@ -78,7 +78,7 @@ export default {
     getLowestLotPrice(itemPageHTML) {
         const wrapper = document.createElement('div');
         wrapper.insertAdjacentHTML('beforeend', itemPageHTML);
-        document.body.appendChild(wrapper);
+        // document.body.appendChild(wrapper);
 
         const rows = wrapper.querySelectorAll('.market_home_main_listing_table .market_recent_listing_row');
         const row = Array.from(rows).filter(row => {
@@ -93,7 +93,7 @@ export default {
             result = parseFloat(cell.textContent.trim().replace(',', '.'));
         }
 
-        wrapper.remove();
+        // wrapper.remove();
 
         return result;
     },

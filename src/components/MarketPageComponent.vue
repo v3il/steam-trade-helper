@@ -5,12 +5,15 @@
         <button class="market-page-actions_items" @click="showItemsData">Предметы</button>
         <button class="market-page-actions_settings" @click="showSettings">Настройки</button>
 
-        <VDialog ref="itemsComponentPopup" @close="$refs.itemsComponent.stopPolling()">
+        <VDialog :is-visible="itemsPolling" @close="itemsPolling = false">
             <template slot="title">
                 Предметы
             </template>
 
-            <BookmarkedItemsData ref="itemsComponent" />
+            <BookmarkedItemsData
+                :settings-data="settings"
+                :polling-started="itemsPolling"
+            />
         </VDialog>
 
         <VDialog ref="settingsComponentPopup" :max-width="600">
@@ -18,7 +21,11 @@
                 Настройки
             </template>
 
-            <SettingsComponent ref="settingsComponent"></SettingsComponent>
+            <SettingsComponent
+                ref="settingsComponent"
+                :settings-data="settings"
+                @update-settings="updateSettings"
+            ></SettingsComponent>
         </VDialog>
     </div>
 </template>
@@ -28,6 +35,8 @@
     import SettingsComponent from './SettingsComponent.vue';
     import VDialog from './VDialog.vue';
 
+    import sendMessageToBackground from '../utils/sendMessageToBackground';
+
     export default {
         name: "MarketPageComponent",
 
@@ -35,6 +44,13 @@
             BookmarkedItemsData,
             SettingsComponent,
             VDialog,
+        },
+
+        data() {
+            return {
+                settings: {},
+                itemsPolling: false,
+            }
         },
 
         methods: {
@@ -46,8 +62,7 @@
             },
 
             showItemsData() {
-                this.$refs.itemsComponentPopup.open();
-                this.$refs.itemsComponent.startPolling();
+                this.itemsPolling = true;
             },
 
             showSettings() {
@@ -57,6 +72,19 @@
             scrollToTop() {
                 window.scrollTo(null, 0);
             },
+
+            updateSettings(settings) {
+                this.settings = settings;
+                sendMessageToBackground('updateSettings', { settings });
+            },
+        },
+
+        async created() {
+            const settings = await sendMessageToBackground('getSettings');
+
+            console.log(settings)
+
+            this.settings = Object.assign({}, settings);
         }
     }
 </script>

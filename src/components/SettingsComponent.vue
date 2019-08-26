@@ -23,23 +23,20 @@
 </template>
 
 <script>
-    import sendMessageToBackground from '../utils/sendMessageToBackground';
-
     export default {
         name: "SettingsComponent",
 
-        data() {
-            return {
-                settings: {}
+        computed: {
+            settings() {
+                return this.settingsData;
             }
         },
 
-        async created() {
-            const settings = await sendMessageToBackground('getSettings');
-
-            console.log(settings)
-
-            this.settings = Object.assign({}, settings);
+        props: {
+            settingsData: {
+                type: Object,
+                default: () => ({}),
+            },
         },
 
         watch: {
@@ -47,13 +44,7 @@
                 deep: true,
 
                 handler(value) {
-                    console.log('Update')
-
-                    sendMessageToBackground('updateSettings', {
-                        settings: value,
-                    });
-
-                    // EventBus.$emit('settings-update', value);
+                    this.$emit('update-settings', value);
                 }
             }
         }
