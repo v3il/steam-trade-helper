@@ -77,6 +77,12 @@
                         @click="removeItemFromBookmarks(itemData)"
                     >delete</i>
                 </td>
+
+                <td class="items_table-cell" v-if="itemData.status === 'loading'">
+                    <i v-if="itemData.status === 'loading'"
+                       class="material-icons items_action-btn items_action-btn-loader"
+                    >cached</i>
+                </td>
             </tr>
         </table>
     </div>
@@ -300,6 +306,10 @@
 
         &_action-btn-warn {
             color: darkorange;
+        }
+
+        &_action-btn-loader {
+            animation: rotate 1s infinite linear;
         }
     }
 </style>
