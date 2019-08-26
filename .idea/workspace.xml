@@ -8,17 +8,9 @@
       <change beforePath="$PROJECT_DIR$/content_scripts/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/Settings.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.css" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.js" beforeDir="false" afterPath="$PROJECT_DIR$/content_scripts/SteamAutoTrader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/popup/popup.html" beforeDir="false" afterPath="$PROJECT_DIR$/popup/popup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MarketPageComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MarketPageComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RootComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RootComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SettingsComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SettingsComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/VDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/Background.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/Background.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/Bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/Bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/SettingsComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/SettingsComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/SteamAutoTrader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/js/SteamAutoTrader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/js/background_actions/initSettingsComponent.js" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,7 +26,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/SettingsComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
+            <state relative-caret-position="144">
               <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
@@ -46,11 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/SettingsComponent.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="60" column="17" lean-forward="true" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
-              <folding>
-                <element signature="e#650#721#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="456">
+              <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -58,11 +47,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/MarketPageComponent.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="13" column="18" selection-start-line="11" selection-start-column="16" selection-end-line="13" selection-end-column="18" />
-              <folding>
-                <element signature="e#737#797#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="360">
+              <caret line="15" column="61" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/VDialog.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="3" column="82" selection-start-line="3" selection-start-column="82" selection-end-line="3" selection-end-column="82" />
             </state>
           </provider>
         </entry>
@@ -70,11 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1590">
+            <state relative-caret-position="3600">
               <caret line="160" column="35" selection-start-line="160" selection-start-column="35" selection-end-line="160" selection-end-column="35" />
-              <folding>
-                <element signature="e#3166#3202#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -85,15 +77,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Vue Single File Component" />
-        <option value="Less File" />
         <option value="JavaScript File" />
+        <option value="Less File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>content_security_policy</find>
-      <find>localStorageItemId</find>
       <find>auto</find>
       <find>itemPrice</find>
       <find>Orchid</find>
@@ -120,6 +110,10 @@
       <find>console</find>
       <find>price</find>
       <find>firstRender</find>
+      <find>market</find>
+      <find>market-page-actions</find>
+      <find>sett</find>
+      <find>settings</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -169,9 +163,10 @@
         <option value="$PROJECT_DIR$/src/components/RootComponent.vue" />
         <option value="$PROJECT_DIR$/src/js/SteamAutoTrader.js" />
         <option value="$PROJECT_DIR$/src/js/handleMarketPage.js" />
-        <option value="$PROJECT_DIR$/src/components/VDialog.vue" />
-        <option value="$PROJECT_DIR$/src/components/SettingsComponent.vue" />
         <option value="$PROJECT_DIR$/src/components/BookmarkedItemsData.vue" />
+        <option value="$PROJECT_DIR$/src/components/settings.less" />
+        <option value="$PROJECT_DIR$/src/components/SettingsComponent.vue" />
+        <option value="$PROJECT_DIR$/src/components/VDialog.vue" />
         <option value="$PROJECT_DIR$/src/components/MarketPageComponent.vue" />
       </list>
     </option>
@@ -337,18 +332,20 @@
       <workItem from="1566676479948" duration="1899000" />
       <workItem from="1566729317684" duration="1443000" />
       <workItem from="1566730781192" duration="2731000" />
-      <workItem from="1566733536422" duration="664000" />
+      <workItem from="1566733536422" duration="1363000" />
+      <workItem from="1566801141940" duration="969000" />
+      <workItem from="1566802128676" duration="1652000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115319000" />
+    <option name="totallyTimeSpent" value="118639000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1975764" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1975764" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -362,7 +359,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.13542795" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.23076923" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -399,15 +396,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/content_scripts/SteamAutoTrader.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/style$.css" />
     <entry file="file://$PROJECT_DIR$/src/start$.js" />
     <entry file="file://$PROJECT_DIR$/src/css/SteamAutoTrader.less" />
-    <entry file="file://$PROJECT_DIR$/content_scripts/SteamAutoTrader.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/firebase.config.js" />
     <entry file="file://$PROJECT_DIR$/.firebaserc" />
     <entry file="file://$PROJECT_DIR$/firebase.json" />
@@ -488,13 +479,6 @@
     <entry file="file://$PROJECT_DIR$/src/js/SettingsController.js" />
     <entry file="file://$PROJECT_DIR$/content_scripts/Settings.js">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webpack.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/popup/popup.js" />
     <entry file="file://$PROJECT_DIR$/manifest.json">
@@ -594,9 +578,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1944">
+          <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content_scripts/SteamAutoTrader.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3600">
+          <caret line="160" column="35" selection-start-line="160" selection-start-column="35" selection-end-line="160" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/settings.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/content_scripts/SteamAutoTrader.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="2263" selection-start-column="2255" selection-end-column="2263" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/SettingsComponent.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/SettingsComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
+        <state relative-caret-position="144">
           <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
@@ -606,38 +628,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/VDialog.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/SettingsComponent.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="60" column="17" lean-forward="true" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
-          <folding>
-            <element signature="e#650#721#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BookmarkedItemsData.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1590">
-          <caret line="160" column="35" selection-start-line="160" selection-start-column="35" selection-end-line="160" selection-end-column="35" />
-          <folding>
-            <element signature="e#3166#3202#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="72">
+          <caret line="3" column="82" selection-start-line="3" selection-start-column="82" selection-end-line="3" selection-end-column="82" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/MarketPageComponent.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="13" column="18" selection-start-line="11" selection-start-column="16" selection-end-line="13" selection-end-column="18" />
-          <folding>
-            <element signature="e#737#797#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="360">
+          <caret line="15" column="61" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="61" />
         </state>
       </provider>
     </entry>

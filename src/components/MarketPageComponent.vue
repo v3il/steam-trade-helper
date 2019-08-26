@@ -6,10 +6,18 @@
         <button class="market-page-actions_settings" @click="showSettings">Настройки</button>
 
         <VDialog ref="itemsComponentPopup" @close="$refs.itemsComponent.stopPolling()">
+            <template slot="title">
+                Предметы
+            </template>
+
             <BookmarkedItemsData ref="itemsComponent" />
         </VDialog>
 
-        <VDialog ref="settingsComponentPopup">
+        <VDialog ref="settingsComponentPopup" :max-width="600">
+            <template slot="title">
+                Настройки
+            </template>
+
             <SettingsComponent ref="settingsComponent"></SettingsComponent>
         </VDialog>
     </div>
@@ -53,7 +61,7 @@
     }
 </script>
 
-<style scoped lang="less">
+<style lang="less">
     .market-page-actions {
         background: black;
         position: fixed;
@@ -68,6 +76,36 @@
             cursor: pointer;
             margin-bottom: 6px;
             width: 100%;
+        }
+    }
+
+    .settings {
+        padding: 12px 0;
+
+        &_param {
+            display: flex;
+            align-items: center;
+            margin: 6px 0;
+        }
+
+        &_name {
+            flex: 1;
+        }
+
+        &_value-checkbox, &_value-input {
+            height: 24px;
+            background: #ccc !important;
+            color: black !important;
+            margin: 0;
+        }
+
+        &_value-checkbox {
+            width: 24px;
+        }
+
+        &_value-input {
+            width: 40px;
+            text-align: center;
         }
     }
 </style>

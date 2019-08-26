@@ -1,9 +1,11 @@
 <template>
     <div class="vdialog-overlay js-vdialog-overlay" v-show="visible">
         <div class="vdialog-overlay__inner-wrap" @click.self="triggerClose">
-            <div class="vdialog-overlay__inner" :style="{maxWidth: '1100px'}">
+            <div class="vdialog-overlay__inner" :style="{maxWidth: `${maxWidth}px`}">
                 <div class="u-content_h3 vdialog-overlay__header">
-                    <div class="vdialog-overlay__title"></div>
+                    <div class="vdialog-overlay__title">
+                        <slot name="title"></slot>
+                    </div>
 
                     <i
                         class="material-icons close-overlay-btn"
@@ -28,6 +30,11 @@
                 type: Boolean,
                 default: false,
             },
+
+            maxWidth: {
+                type: Number,
+                default: 1100,
+            }
         },
 
         data() {
