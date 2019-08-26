@@ -148,14 +148,14 @@
                     resolve(data);
                 });
 
-                const companionItemPrices = await new Promise((resolve) => {
-                    setTimeout(async () => {
+                const companionItemPrices = await new Promise(async (resolve) => {
+                    // setTimeout(async () => {
                         const data = await SteamItemsService.getItemData({
                             itemName: itemData.normalizedName,
                         });
 
                         resolve(data);
-                    }, 500);
+                    // }, 500);
                 });
 
                 const { autoPrice, myAutoPrice, lowestLotPrice } = itemPrices;
@@ -181,7 +181,7 @@
 
                 this.pollingIntervalId = setInterval(() => {
                     if (this.settings.autoReloadItemsData) {
-                        console.log('Reload')
+                        console.log('Reload');
                         this.loadData();
                     }
                 }, this.settings.refreshInterval * 60 * 1000);
@@ -214,7 +214,7 @@
                         });
                     }
 
-                    console.clear();
+                    // console.clear();
                 }
             },
 

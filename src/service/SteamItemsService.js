@@ -78,24 +78,28 @@ export default {
     getLowestLotPrice(itemPageHTML) {
         const wrapper = document.createElement('div');
         wrapper.insertAdjacentHTML('beforeend', itemPageHTML);
-        // document.body.appendChild(wrapper);
 
-        const rows = wrapper.querySelectorAll('.market_home_main_listing_table .market_recent_listing_row');
-        const row = Array.from(rows).filter(row => {
-            return row.textContent.trim().indexOf('Продано!') < 0;
-        })[0];
+        const rows = Array.from(
+            wrapper.querySelectorAll('.market_home_main_listing_table .market_recent_listing_row') || []
+        );
 
-        const cell = row.querySelector('.market_listing_price_with_fee');
+        const priceCells = rows.map(row => row.querySelector('.market_listing_price_with_fee'));
 
-        let result = 0;
+        const prices = priceCells.map((cell) => {
+            // Цена или строка "Продано!"
+            const value = cell.textContent.trim()
+                .replace(',', '.')
+                .replace(/[^0-9.]/g, '');
 
-        if (cell) {
-            result = parseFloat(cell.textContent.trim().replace(',', '.'));
-        }
+            if (value.length) {
+                return parseFloat(value);
+            } else {
+                return 0;
+            }
+        });
 
-        // wrapper.remove();
-
-        return result;
+        const meaningfulPrices = prices.filter(price => price > 0);
+        return Math.min.apply(null, meaningfulPrices);
     },
 
     async getItemPage(itemName) {
