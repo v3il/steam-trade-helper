@@ -13,7 +13,6 @@
                 <td class="items_table-cell">Прибыль</td>
                 <td class="items_table-cell items_table-cell-my-profit">Моя прибыль</td>
                 <td class="items_table-cell items_table-cell-buy-profit">Покупка лота</td>
-                <td class="items_table-cell">Разница автопокупки</td>
                 <td class="items_table-cell items_table-cell-actions">&nbsp;</td>
             </tr>
 
@@ -50,23 +49,21 @@
                 <td class="items_table-cell items_table-cell-my-profit" :class="{
                     'items_table-cell--positive': itemData.myAutoProfit > 0,
                     'items_table-cell--negative': itemData.myAutoProfit < 0,
-                }">{{itemData.myAutoProfit | format}}</td>
+                }">
+                    {{itemData.myAutoProfit | format}}
+
+                    <i
+                        class="material-icons items_action-btn items_action-btn-warn"
+                        v-if="itemData.autoPriceWarn"
+                    >warning</i>
+                </td>
 
                 <td class="items_table-cell items_table-cell-buy-profit" :class="{
                     'items_table-cell--positive': itemData.buyProfit > 0,
                     'items_table-cell--negative': itemData.buyProfit < 0,
                 }">{{itemData.buyProfit | format}}</td>
 
-                <td class="items_table-cell" :class="{
-                    'items_table-cell--negative': itemData.auto - itemData.myAuto < 15,
-                }">{{(itemData.myAuto === 0 ? 0 : itemData.auto - itemData.myAuto) | format}}</td>
-
                 <td class="items_table-cell items_table-cell-actions" v-if="itemData.status === 'loaded'">
-                    <i
-                        class="material-icons items_action-btn items_action-btn-warn"
-                        v-if="itemData.autoPriceWarn"
-                    >warning</i>
-
                     <i
                         class="material-icons items_action-btn"
                         @click="getItemInfo(itemData)"
@@ -149,13 +146,13 @@
                 });
 
                 const companionItemPrices = await new Promise(async (resolve) => {
-                    // setTimeout(async () => {
+                    setTimeout(async () => {
                         const data = await SteamItemsService.getItemData({
                             itemName: itemData.normalizedName,
                         });
 
                         resolve(data);
-                    // }, 500);
+                    }, 1000);
                 });
 
                 const { autoPrice, myAutoPrice, lowestLotPrice } = itemPrices;
@@ -171,7 +168,7 @@
                 itemData.myAutoProfit = itemData.myAuto ? itemData.price * STEAM_FEE_MULTIPLIER - itemData.myAuto : 0;
 
                 itemData.isMeagerItem = itemData.profit < 5 && itemData.myAutoProfit < 5;
-                itemData.autoPriceWarn = itemData.auto - itemData.myAuto < 1;
+                itemData.autoPriceWarn = itemData.myAutoProfit > 0 && itemData.myAutoProfit < this.settings.minRequiredProfit;
 
                 itemData.status = 'loaded';
             },
@@ -206,7 +203,7 @@
                     if (itemData.buyProfit > this.settings.notifyOnPrice) {
                         makeNotification({
                             title: 'Есть выгодные предметы!',
-                            body: `${itemData.normalizedName} (${itemData.buyProfit})`,
+                            body: `${itemData.normalizedName} (${itemData.buyProfit.toFixed(2)})`,
                         }, () => {
                             sendMessageToBackground('openTabs', {
                                 urls: [`https://steamcommunity.com/market/listings/570/${itemData.itemName}`],
@@ -318,6 +315,8 @@
 
         &_action-btn-warn {
             color: darkorange;
+            vertical-align: bottom;
+            font-size: 16px;
         }
 
         &_action-btn-loader {

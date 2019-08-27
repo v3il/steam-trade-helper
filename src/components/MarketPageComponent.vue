@@ -5,7 +5,7 @@
         <button class="market-page-actions_items" @click="showItemsData">Предметы</button>
         <button class="market-page-actions_settings" @click="showSettings">Настройки</button>
 
-        <VDialog :is-visible="itemsPolling" @close="itemsPolling = false">
+        <VDialog :is-visible="itemsPolling" @close="itemsPolling = false" :max-width="950">
             <template slot="title">
                 Предметы
             </template>

@@ -19,6 +19,11 @@
             <span class="settings_name">Обновлять данные через (минут):</span>
             <input class="settings_value-input" type="number" v-model.number="settings.refreshInterval">
         </div>
+
+        <div class="settings_param">
+            <span class="settings_name">Минимальная желаемая прибыль:</span>
+            <input class="settings_value-input" type="number" v-model.number="settings.minRequiredProfit">
+        </div>
     </div>
 </template>
 
