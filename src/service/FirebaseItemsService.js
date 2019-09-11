@@ -8,26 +8,46 @@ if(!firebase.apps.length) {
 
 const db = firebase.firestore();
 
+import axios from 'axios';
+
+const API_URL = 'http://194.32.79.212:3000/items';
+
+
 export default {
     async getAllBookmarkedItems() {
         try {
-            const querySnapshot = await db.collection("bookmarked-items").get();
-            const result = [];
+            const response = await axios.get(`${API_URL}/`);
+            const items = response.data;
 
-            querySnapshot.forEach(function(doc) {
-                result.push(doc.data());
-            });
+            return items;
 
-            return result;
+            // console.log(response);
+
+            // console.log(111)
+
+            // const querySnapshot = await db.collection("bookmarked-items").get();
+            // const result = [];
+            //
+            // querySnapshot.forEach(function(doc) {
+            //     result.push(doc.data());
+            // });
+            //
+            // return result;
         } catch (e) {
+            console.log(e)
+
             return [];
         }
     },
 
     async addToBookmarks({ itemId, itemName }) {
         try {
-            await db.collection("bookmarked-items")
-                .add({ itemId, itemName });
+            const result = await axios.post(`${API_URL}/`, { itemId, itemName });
+
+            console.log(result);
+
+            // await db.collection("bookmarked-items")
+            //     .add({ itemId, itemName });
 
             return true;
         } catch (e) {
@@ -37,13 +57,18 @@ export default {
 
     async removeFromBookmarks({ itemId }) {
         try {
-            const querySnapshot = await db.collection("bookmarked-items")
-                .where("itemId", "==", itemId)
-                .get();
+            const result = await axios.delete(`${API_URL}/`, { data: { itemId } });
 
-            querySnapshot.forEach(function(doc) {
-                doc.ref.delete();
-            });
+            console.log(result)
+
+
+            // const querySnapshot = await db.collection("bookmarked-items")
+            //     .where("itemId", "==", itemId)
+            //     .get();
+            //
+            // querySnapshot.forEach(function(doc) {
+            //     doc.ref.delete();
+            // });
 
             return true;
         } catch (e) {
@@ -53,11 +78,17 @@ export default {
 
     async isBookmarked({ itemId }) {
         try {
-            const querySnapshot = await db.collection("bookmarked-items")
-                .where("itemId", "==", itemId)
-                .get();
+            const response = await axios.post(`${API_URL}/check`, {
+                itemId
+            });
 
-            return querySnapshot.size > 0;
+            return response.data.isBookmarked;
+
+            // const querySnapshot = await db.collection("bookmarked-items")
+            //     .where("itemId", "==", itemId)
+            //     .get();
+            //
+            // return querySnapshot.size > 0;
         } catch (e) {
             return false;
         }

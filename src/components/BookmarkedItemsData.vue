@@ -231,8 +231,11 @@
         async created() {
             const items = await sendMessageToBackground('getBookmarkedItems');
 
+            console.log(items)
+
             this.allItemsData = items.map((item) => ({
                 ...item,
+                itemId: item.steamId,
                 normalizedName: item.itemName.replace('Inscribed ', ''),
                 auto: 0,
                 myAuto: 0,
