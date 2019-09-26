@@ -32,6 +32,13 @@
                 <td class="items_table-cell">
                     <a target="_blank" :href="'/market/listings/570/' + itemData.itemName">
                         {{itemData.myAuto | format}}
+
+                        <span class="items_table-cell-autoprice-diff" :class="{
+                            'items_table-cell-autoprice-diff--positive': itemData.autoPriceDiff >= 10,
+                            'items_table-cell-autoprice-diff--negative': itemData.autoPriceDiff < 10,
+                        }" v-if="itemData.autoPriceDiff > 0">
+                            ({{itemData.autoPriceDiff | format}})
+                        </span>
                     </a>
                 </td>
 
@@ -51,11 +58,6 @@
                     'items_table-cell--negative': itemData.myAutoProfit < 0,
                 }">
                     {{itemData.myAutoProfit | format}}
-
-                    <i
-                        class="material-icons items_action-btn items_action-btn-warn"
-                        v-if="itemData.autoPriceWarn"
-                    >warning</i>
                 </td>
 
                 <td class="items_table-cell items_table-cell-buy-profit" :class="{
@@ -167,8 +169,9 @@
                 itemData.buyProfit = itemData.price * STEAM_FEE_MULTIPLIER - itemData.buyPrice;
                 itemData.myAutoProfit = itemData.myAuto ? itemData.price * STEAM_FEE_MULTIPLIER - itemData.myAuto : 0;
 
+                itemData.autoPriceDiff = itemData.myAuto > 0 ? itemData.auto - itemData.myAuto : 0;
                 itemData.isMeagerItem = itemData.profit < 5 && itemData.myAutoProfit < 5;
-                itemData.autoPriceWarn = itemData.myAutoProfit > 0 && itemData.myAutoProfit < this.settings.minRequiredProfit;
+                itemData.autoPriceWarn = itemData.myAuto > 0 && itemData.autoPriceDiff < this.settings.minRequiredProfit;
 
                 itemData.status = 'loaded';
             },
@@ -324,6 +327,16 @@
 
         &_action-btn-loader {
             animation: rotate 1s infinite linear;
+        }
+
+        &_table-cell-autoprice-diff {
+            &--positive {
+                color: lightgreen;
+            }
+
+            &--negative {
+                color: lightcoral;
+            }
         }
     }
 </style>

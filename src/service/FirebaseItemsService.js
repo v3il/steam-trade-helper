@@ -17,38 +17,15 @@ export default {
     async getAllBookmarkedItems() {
         try {
             const response = await axios.get(`${API_URL}/`);
-            const items = response.data;
-
-            return items;
-
-            // console.log(response);
-
-            // console.log(111)
-
-            // const querySnapshot = await db.collection("bookmarked-items").get();
-            // const result = [];
-            //
-            // querySnapshot.forEach(function(doc) {
-            //     result.push(doc.data());
-            // });
-            //
-            // return result;
+            return response.data;
         } catch (e) {
-            console.log(e)
-
             return [];
         }
     },
 
     async addToBookmarks({ itemId, itemName }) {
         try {
-            const result = await axios.post(`${API_URL}/`, { itemId, itemName });
-
-            console.log(result);
-
-            // await db.collection("bookmarked-items")
-            //     .add({ itemId, itemName });
-
+            await axios.post(`${API_URL}/`, { itemId, itemName });
             return true;
         } catch (e) {
             return false;
@@ -57,19 +34,7 @@ export default {
 
     async removeFromBookmarks({ itemId }) {
         try {
-            const result = await axios.delete(`${API_URL}/`, { data: { itemId } });
-
-            console.log(result)
-
-
-            // const querySnapshot = await db.collection("bookmarked-items")
-            //     .where("itemId", "==", itemId)
-            //     .get();
-            //
-            // querySnapshot.forEach(function(doc) {
-            //     doc.ref.delete();
-            // });
-
+            await axios.delete(`${API_URL}/`, { data: { itemId } });
             return true;
         } catch (e) {
             return false;
@@ -83,12 +48,6 @@ export default {
             });
 
             return response.data.isBookmarked;
-
-            // const querySnapshot = await db.collection("bookmarked-items")
-            //     .where("itemId", "==", itemId)
-            //     .get();
-            //
-            // return querySnapshot.size > 0;
         } catch (e) {
             return false;
         }
