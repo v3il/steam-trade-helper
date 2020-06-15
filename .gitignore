@@ -2,3 +2,4 @@ firebase-config.js
 node_modules
 package_lock.json
 .idea
+content_scripts

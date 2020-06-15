@@ -56,9 +56,9 @@
     import sendMessageToBackground from '../utils/sendMessageToBackground';
     import SteamItemsService from '../service/SteamItemsService';
 
-    import Constants from '../Constants';
+    import config from '@/config';
 
-    const { STEAM_FEE_MULTIPLIER } = Constants;
+    const { STEAM_FEE_MULTIPLIER } = config;
 
     export default {
         name: "ItemDataTooltip",

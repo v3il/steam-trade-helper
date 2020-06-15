@@ -1,0 +1,60 @@
+import axios from '@/axios';
+
+export default {
+    async getAllBookmarkedItems() {
+        try {
+            const response = await axios.get('/items');
+            return response.data;
+        } catch (e) {
+            return [];
+        }
+    },
+
+    async addToBookmarks(itemData) {
+        try {
+            await axios.post('/items', itemData);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
+
+    async removeFromBookmarks({ itemId }) {
+        try {
+            await axios.delete('/items', { data: { itemId } });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
+
+    async isBookmarked({ itemId }) {
+        try {
+            const response = await axios.get('/items/check', {
+                params: { itemId }
+            });
+
+            return response.data.isBookmarked;
+        } catch (e) {
+            return false;
+        }
+    },
+
+    async getSettings() {
+        try {
+            const response = await axios.get('/settings');
+            return response.data;
+        } catch (e) {
+            return false;
+        }
+    },
+
+    async updateSettings(settings) {
+        try {
+            await axios.post('/settings', settings);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
+}

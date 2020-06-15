@@ -19,7 +19,6 @@ const webpackConfig = {
     target: 'web',
     mode: 'production',
     devtool: false,
-    watch: true,
 
     output: {
         path: getFullPath(distPath),
@@ -92,22 +91,6 @@ const webpackConfig = {
                     fallback: "style-loader"
                 })
             },
-
-            // {
-            //     test: /\.(jpg|png|gif|svg)$/,
-            //     loader: "file-loader?name=images/[name].[ext]",
-            //     include: [
-            //         getFullPath("development/img")
-            //     ],
-            // },
-            //
-            // {
-            //     test: /\.(woff|ttf|eot|svg|woff2)(\?.*)?$/,
-            //     loader: "file-loader?name=fonts/[name].[ext]",
-            //     include: [
-            //         getFullPath("development/fonts"),
-            //     ],
-            // }
         ],
     },
 

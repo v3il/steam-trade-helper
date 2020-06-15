@@ -6,26 +6,13 @@
         <button class="market-page-actions_settings" @click="showSettings">Настройки</button>
 
         <VDialog :is-visible="itemsPolling" @close="itemsPolling = false" :max-width="980">
-            <template slot="title">
-                Предметы
-            </template>
-
-            <BookmarkedItemsData
-                :settings-data="settings"
-                :polling-started="itemsPolling"
-            />
+            <template slot="title">Предметы</template>
+            <BookmarkedItemsData :settings-data="settings" :polling-started="itemsPolling" />
         </VDialog>
 
-        <VDialog ref="settingsComponentPopup" :max-width="600">
-            <template slot="title">
-                Настройки
-            </template>
-
-            <SettingsComponent
-                ref="settingsComponent"
-                :settings-data="settings"
-                @update-settings="updateSettings"
-            ></SettingsComponent>
+        <VDialog ref="settingsComponentPopup" :max-width="600" @close="updateSettings">
+            <template slot="title">Настройки</template>
+            <SettingsComponent ref="settingsComponent" :settings-data="settings"></SettingsComponent>
         </VDialog>
     </div>
 </template>
@@ -73,16 +60,15 @@
                 window.scrollTo(null, 0);
             },
 
-            updateSettings(settings) {
-                this.settings = settings;
-                sendMessageToBackground('updateSettings', { settings });
+            updateSettings() {
+                sendMessageToBackground('updateSettings', { settings: this.settings });
             },
         },
 
         async created() {
             const settings = await sendMessageToBackground('getSettings');
 
-            console.log(settings)
+            console.error('Settings:', settings);
 
             this.settings = Object.assign({}, settings);
         }

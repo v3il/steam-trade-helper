@@ -95,9 +95,9 @@
 
     import formatPrice from '../vue-mixins/formatPrice';
 
-    import Constants from '../Constants';
+    import config from '@/config';
 
-    const { STEAM_FEE_MULTIPLIER } = Constants;
+    const { STEAM_FEE_MULTIPLIER } = config;
 
     export default {
         name: "BookmarkedItemsData",
