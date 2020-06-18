@@ -53,4 +53,9 @@ chrome.runtime.onMessageExternal.addListener(async function(message, sender, sen
 
         sendResponse(true);
     }
+
+    if (action === 'setWatchStatus') {
+        await ApiService.setWatchStatus(message);
+        sendResponse(true);
+    }
 });

@@ -75,6 +75,18 @@
                         class="material-icons items_action-btn items_action-btn-remove"
                         @click="removeItemFromBookmarks(itemData)"
                     >delete</i>
+
+                    <i
+                        v-if="itemData.watch"
+                        class="material-icons items_action-btn"
+                        @click="updateWatchStatus(itemData, false)"
+                    >visibility</i>
+
+                    <i
+                        v-else
+                        class="material-icons items_action-btn"
+                        @click="updateWatchStatus(itemData, true)"
+                    >visibility_off</i>
                 </td>
 
                 <td class="items_table-cell" v-if="itemData.status === 'loading'">
@@ -228,6 +240,15 @@
                         this.allItemsData = this.allItemsData.filter(item => item.itemId !== itemId);
                     }
                 }
+            },
+
+            async updateWatchStatus(itemData, watchStatus) {
+                await sendMessageToBackground('setWatchStatus', {
+                    watchStatus,
+                    itemId: itemData.itemId,
+                });
+
+                itemData.watch = watchStatus;
             }
         },
 

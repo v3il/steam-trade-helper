@@ -57,4 +57,13 @@ export default {
             return false;
         }
     },
+
+    async setWatchStatus(data) {
+        try {
+            await axios.post('/items/set_watch_status', data);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
 }
