@@ -1,6 +1,6 @@
 <template>
     <div class="items">
-        <button @click="loadData">Обновить всё</button>
+        <button @click="loadData(false)">Обновить всё</button>
 
         <div class="separator"></div>
 
@@ -90,9 +90,7 @@
                 </td>
 
                 <td class="items_table-cell" v-if="itemData.status === 'loading'">
-                    <i v-if="itemData.status === 'loading'"
-                       class="material-icons items_action-btn items_action-btn-loader"
-                    >cached</i>
+                    <i class="material-icons items_action-btn items_action-btn-loader">cached</i>
                 </td>
             </tr>
         </table>
@@ -198,7 +196,7 @@
                     }
                 }, this.settings.refreshInterval * 60 * 1000);
 
-                this.loadData();
+                this.loadData(true);
             },
 
             stopPolling() {
@@ -207,10 +205,15 @@
                 clearInterval(this.pollingIntervalId);
             },
 
-            async loadData() {
+            async loadData(forceUpdate = false) {
                 for (const itemData of this.sortedItemsData) {
                     if (!this.polling) {
                         return console.log('Stop polling');
+                    }
+
+                    if (!forceUpdate && !itemData.watch) {
+                        console.log('Skip item');
+                        continue;
                     }
 
                     await this.getItemInfo(itemData);
