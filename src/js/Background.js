@@ -58,4 +58,14 @@ chrome.runtime.onMessageExternal.addListener(async function(message, sender, sen
         await ApiService.setWatchStatus(message);
         sendResponse(true);
     }
+
+    if (action === 'bookmarkCase') {
+        await ApiService.bookmarkCase(message);
+        sendResponse(true);
+    }
+
+    if (action === 'updatePrice') {
+        await ApiService.updateCasePrice(message);
+        sendResponse(true);
+    }
 });

@@ -19,7 +19,7 @@
  
     "content_scripts": [
         {
-            "matches": ["https://steamcommunity.com/market/listings/570/*", "https://steamcommunity.com/market/"],
+            "matches": ["https://steamcommunity.com/market/listings/570/*", "https://steamcommunity.com/market/listings/730/*", "https://steamcommunity.com/market/"],
             "js": ["content_scripts/Bootstrap.js"],
             "run_at": "document_end",
             "all_frames": true

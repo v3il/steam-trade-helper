@@ -65,5 +65,23 @@ export default {
         } catch (e) {
             return false;
         }
+    },
+
+    async bookmarkCase(data) {
+        try {
+            await axios.post('/dynamic_items', data);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    },
+
+    async updateCasePrice(data) {
+        try {
+            await axios.post('/dynamic_items/update_price', data);
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 }

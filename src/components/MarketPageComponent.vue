@@ -4,6 +4,7 @@
         <button class="market-page-actions_to-pagi" @click="scrollToPagination">К пагинации</button>
         <button class="market-page-actions_items" @click="showItemsData">Предметы</button>
         <button class="market-page-actions_settings" @click="showSettings">Настройки</button>
+        <button class="market-page-actions_update_price" @click="updateOrdersPrices">Обновить цены кейсов</button>
 
         <VDialog :is-visible="itemsPolling" @close="itemsPolling = false" :max-width="1000">
             <template slot="title">Предметы</template>
@@ -62,6 +63,28 @@
 
             updateSettings() {
                 sendMessageToBackground('updateSettings', { settings: this.settings });
+            },
+
+            updateOrdersPrices() {
+                const table = document.querySelectorAll('.my_listing_section')[1];
+
+                if (!table) {
+                    return;
+                }
+
+                const rows = table.querySelectorAll('.market_listing_row');
+
+                const pricesData = Array.from(rows).map((row) => {
+                     const itemNameLink = row.querySelector('.market_listing_item_name_link');
+                     const name = itemNameLink ? itemNameLink.textContent : '';
+
+                     const itemPriceSpan = row.querySelector('.market_listing_price');
+                     const price = itemPriceSpan ? parseFloat(itemPriceSpan.innerText.replace(',', '.')) : 0;
+
+                     return { name, price };
+                });
+
+                sendMessageToBackground('updatePrice', { items: pricesData });
             },
         },
 
