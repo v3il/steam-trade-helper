@@ -4,7 +4,6 @@
         <button class="market-page-actions_to-pagi" @click="scrollToPagination">К пагинации</button>
         <button class="market-page-actions_items" @click="showItemsData">Предметы</button>
         <button class="market-page-actions_settings" @click="showSettings">Настройки</button>
-        <button class="market-page-actions_update_price" @click="updateOrdersPrices">Обновить цены кейсов</button>
 
         <VDialog :is-visible="itemsPolling" @close="itemsPolling = false" :max-width="1000">
             <template slot="title">Предметы</template>
@@ -44,6 +43,11 @@
         methods: {
             scrollToPagination() {
                 const pagination = document.querySelector('.market_paging');
+
+                if (!pagination) {
+                  return;
+                }
+
                 const top = pagination.getBoundingClientRect().top;
 
                 window.scrollTo(null, top + window.scrollY - 600);
