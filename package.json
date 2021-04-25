@@ -7,7 +7,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "material-design-icons": "^3.0.1",
     "vue": "^2.5.16",
